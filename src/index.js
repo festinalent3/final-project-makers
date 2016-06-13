@@ -1,8 +1,8 @@
-import Boot from 'states/Boot';
-import Preload from 'states/Preload';
-import GameTitle from 'states/GameTitle';
-import Main from 'states/Main';
-import GameOver from 'states/GameOver';
+import Boot from './states/Boot';
+import Preload from './states/Preload';
+import GameTitle from './states/GameTitle';
+import Main from './states/Main';
+import GameOver from './states/GameOver';
 
 class Game extends Phaser.Game {
 
