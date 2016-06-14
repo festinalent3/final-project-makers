@@ -1,11 +1,11 @@
 import Dude from '../objects/Dude';
-import * as prop from "../modules/gameProperties";
+import * as set from "../modules/gameProperties";
 import move from '../modules/moves';
 import makeMany from '../modules/makeMany';
 import createEnemies from '../modules/createEnemies';
 
 var spacefield;
-var backgroundv;
+var backgroundVelocity;
 var player;
 var cursors;
 var bullets;
@@ -20,7 +20,7 @@ class Main extends Phaser.State {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		spacefield = this.game.add.tileSprite(0,0,800,600,"starfield");
-    backgroundv = 5;
+    backgroundVelocity = 5;
     player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
 
     // Set physics for spaceship
@@ -30,7 +30,7 @@ class Main extends Phaser.State {
 
     bullets = this.game.add.group();
 
-    prop.setBulletProperties(bullets);
+    set.bulletsProperties(bullets);
 
     fireButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -42,7 +42,7 @@ class Main extends Phaser.State {
 
   update() {
   	this.game.physics.arcade.overlap(bullets, enemies, collisionHandler, null, this);
-    spacefield.tilePosition.y += backgroundv;
+    spacefield.tilePosition.y += backgroundVelocity;
 
 		move(player, cursors, fireButton, this.game, fireBullet);
 
