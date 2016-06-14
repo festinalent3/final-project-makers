@@ -1,5 +1,8 @@
 import Dude from '../objects/Dude';
-import setProperties from "../modules/playerProperties"
+//import setPlayerProperties from "../modules/gameProperties"
+//import setBulletProperties from "../modules/gameProperties"
+
+import * as prop from "../modules/gameProperties";
 import move from '../modules/moves';
 import makeMany from '../modules/makeMany';
 // import collectStar from 'modules/collectStar';
@@ -29,12 +32,8 @@ class Main extends Phaser.State {
     cursors = this.game.input.keyboard.createCursorKeys();
 
     bullets = this.game.add.group();
-    bullets.enableBody = true;
-    bullets.createMultiple(30, 'bullet');
-    bullets.setAll('anchor.x', 0.5);
-    bullets.setAll('anchor.y', 1);
-    bullets.setAll('outOfBoundsKill', true);
-    bullets.setAll('checkWorldBounds', true);
+
+    prop.setBulletProperties(bullets);
 
     fireButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
