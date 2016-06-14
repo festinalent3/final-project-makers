@@ -1,15 +1,12 @@
-import Dude from '../objects/Dude';
-import setProperties from "../modules/playerProperties"
 import move from '../modules/moves';
 import makeMany from '../modules/makeMany';
-// import collectStar from 'modules/collectStar';
+import fire from '../modules/fire';
 
 var spacefield;
 var backgroundv;
 var player;
 var cursors;
 var bullets;
-var bulletTime = 0;
 var fireButton;
 var enemies;
 
@@ -67,19 +64,20 @@ class Main extends Phaser.State {
   	this.game.physics.arcade.overlap(bullets, enemies, collisionHandler, null, this);
     spacefield.tilePosition.y += backgroundv;
 
-		move(player, cursors, fireButton, this.game, fireBullet);
+		move(player, cursors, fireButton, this.game);
 
-	  function fireBullet(game) {
-	    if(game.time.now > bulletTime){
-	        var bullet = bullets.getFirstExists(false);
+        fire(bullets, player, fireButton, this.game)
+	 //  function fireBullet(game) {
+	 //    if(game.time.now > bulletTime){
+	 //        var bullet = bullets.getFirstExists(false);
 
-	        if(bullet){
-	            bullet.reset(player.x + 14,player.y);
-	            bullet.body.velocity.y = -400;
-	            bulletTime = game.time.now + 200;
-	        }
-	    }
-		}
+	 //        if(bullet){
+	 //            bullet.reset(player.x + 14,player.y);
+	 //            bullet.body.velocity.y = -400;
+	 //            bulletTime = game.time.now + 200;
+	 //        }
+	 //    }
+		// }
 
 		function collisionHandler(bullet,enemy){
 			bullet.kill();
