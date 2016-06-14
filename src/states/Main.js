@@ -1,6 +1,7 @@
 import move from '../modules/moves';
 import makeMany from '../modules/makeMany';
 import fire from '../modules/fire';
+import * as handler from '../modules/handlers';
 
 var spacefield;
 var backgroundv;
@@ -61,12 +62,13 @@ class Main extends Phaser.State {
   }
 
   update() {
-  	this.game.physics.arcade.overlap(bullets, enemies, collisionHandler, null, this);
+  	this.game.physics.arcade.overlap(bullets, enemies, handler.collision, null, this);
     spacefield.tilePosition.y += backgroundv;
 
 		move(player, cursors, fireButton, this.game);
 
-        fire(bullets, player, fireButton, this.game)
+        fire(bullets, player, fireButton, this.game);
+
 	 //  function fireBullet(game) {
 	 //    if(game.time.now > bulletTime){
 	 //        var bullet = bullets.getFirstExists(false);
@@ -79,10 +81,10 @@ class Main extends Phaser.State {
 	 //    }
 		// }
 
-		function collisionHandler(bullet,enemy){
-			bullet.kill();
-			enemy.kill();
-		}
+	// 	function collision(bullet,enemy){
+	// 		bullet.kill();
+	// 		enemy.kill();
+	// 	}
 	}
 
 }
