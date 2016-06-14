@@ -12,7 +12,7 @@ Added technology:
 
 ## Usage
 
-You need [Node.js and npm](https://nodejs.org/). You should also have git installed, but it's not mandatory.
+You need [Node.js and npm](https://nodejs.org/).
 
 Clone the repository
 
@@ -29,3 +29,7 @@ Run a development build...
 ...or a production build.
 
 `npm run production`
+
+Run unit tests
+
+`npm test`
