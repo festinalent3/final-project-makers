@@ -1,11 +1,8 @@
 import Dude from '../objects/Dude';
-//import setPlayerProperties from "../modules/gameProperties"
-//import setBulletProperties from "../modules/gameProperties"
-
 import * as prop from "../modules/gameProperties";
 import move from '../modules/moves';
 import makeMany from '../modules/makeMany';
-// import collectStar from 'modules/collectStar';
+import createEnemies from '../modules/createEnemies';
 
 var spacefield;
 var backgroundv;
@@ -40,26 +37,7 @@ class Main extends Phaser.State {
     enemies = this.game.add.group();
     enemies.enableBody = true;
 
-    createEnemies(this.game);
-
-    function createEnemies(game) {
-    	for(var y = 0; y < 4; y++){
-    		for(var x = 0; x < 10; x++){
-    			var enemy = enemies.create(x*48,y*50, 'enemy');
-    			enemy.anchor.setTo(0.5,0.5);
-    		}
-    	}
-    	enemies.x = 100;
-    	enemies.y = 50;
-
-    	var tween = game.add.tween(enemies).to({x:200},2000,Phaser.Easing.Linear.None,true,0,1000,true)
-    	tween.onLoop.add(descend, this);
-    }
-
-    function descend() {
-    	enemies.y += 10;
-    }
-
+    createEnemies(this.game,enemies);
   }
 
   update() {
