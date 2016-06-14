@@ -1,4 +1,4 @@
-export default function move(player, cursors, fireButton, game, fireBullet) {
+export default function move(player, cursors, fireButton, game) {
 
   player.body.velocity.x = 0;
 
@@ -7,9 +7,6 @@ export default function move(player, cursors, fireButton, game, fireBullet) {
   }
   if(cursors.right.isDown) {
       player.body.velocity.x = 350;
-  }
-  if(fireButton.isDown) {
-      fireBullet(game);
   }
 }
 
