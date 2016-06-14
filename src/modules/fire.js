@@ -2,6 +2,7 @@
 
  	if(fireButton.isDown) {
  		fireBullet(game, player, bullets);
+    return true;
  		}
  	}
  	var bulletTime = 0;

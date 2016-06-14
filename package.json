@@ -1,7 +1,7 @@
 {
-  "name": "phaser-es6-boilerplate",
+  "name": "MakersSMASH",
   "version": "1.0.2",
-  "description": "Tiny flexible template for writing Phaser games in ES6/ES2015 with Babel.",
+  "description": "Final project Makers Academy",
   "main": "src/index.js",
   "scripts": {
     "start": "gulp",
@@ -10,9 +10,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/belohlavek/phaser-es6-boilerplate"
+    "url": "https://github.com/festinalent3/final-project-makers"
   },
-  "author": "Daniel Belohlavek",
+  "author": "ES, AM, NH, OA",
   "license": "MIT",
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
