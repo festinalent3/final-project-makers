@@ -11,6 +11,7 @@ var cursors;
 var bullets;
 var fireButton;
 var enemies;
+var scoreText;
 
 class Main extends Phaser.State {
 
@@ -21,6 +22,8 @@ class Main extends Phaser.State {
 		spacefield = this.game.add.tileSprite(0,0,800,600,"starfield");
     backgroundVelocity = 5;
     player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
+
+		scoreText = this.game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#FFF' });
 
     // Set physics for spaceship
     this.game.physics.arcade.enable(player);
@@ -40,10 +43,11 @@ class Main extends Phaser.State {
   }
 
   update() {
-  	this.game.physics.arcade.overlap(bullets, enemies, handler.collision, null, this);
-    spacefield.tilePosition.y += backgroundVelocity;
 		move(player, cursors, fireButton, this.game);
-    fire(bullets, player, fireButton, this.game);
+		fire(bullets, player, fireButton, this.game);
+  	this.game.physics.arcade.overlap(bullets, enemies, handler.collision, handler.calculateScore(scoreText), this);
+    spacefield.tilePosition.y += backgroundVelocity;
+
 	}
 
 }
