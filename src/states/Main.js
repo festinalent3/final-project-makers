@@ -22,7 +22,7 @@ class Main extends Phaser.State {
 		spacefield = this.game.add.tileSprite(0,0,800,600,"starfield");
     backgroundv = 5;
     player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
-    
+
     // Set physics for spaceship
     this.game.physics.arcade.enable(player);
     player.body.collideWorldBounds = true;
@@ -60,25 +60,15 @@ class Main extends Phaser.State {
     function descend() {
     	enemies.y += 10;
     }
-		
+
   }
 
   update() {
   	this.game.physics.arcade.overlap(bullets, enemies, collisionHandler, null, this);
     spacefield.tilePosition.y += backgroundv;
 
-    player.body.velocity.x = 0;
+		move(player, cursors, fireButton, this.game, fireBullet);
 
-    if(cursors.left.isDown) {
-    	player.body.velocity.x = -350;
-    }
-    if(cursors.right.isDown) {
-        player.body.velocity.x = 350;
-    }
-    if(fireButton.isDown) {
-        fireBullet(this.game);
-    }
-  
 	  function fireBullet(game) {
 	    if(game.time.now > bulletTime){
 	        var bullet = bullets.getFirstExists(false);
