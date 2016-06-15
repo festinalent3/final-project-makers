@@ -14,49 +14,53 @@ var enemies;
 var scoreText;
 var enemyBullet;
 var fireButton;
+var lifeText;
+var stateText;
 
 class Main extends Phaser.State {
 
-	create() {
-		// Set physics for the groups
-		this.game.physics.startSystem(Phaser.Physics.ARCADE);
+  create() {
+    // Set physics for the groups
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		spacefield = this.game.add.tileSprite(0,0,800,600,"starfield");
-		backgroundVelocity = 5;
-		player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
+    spacefield = this.game.add.tileSprite(0,0,800,600,"starfield");
+    backgroundVelocity = 5;
+    player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
 
-		scoreText = this.game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#FFF' });
+    scoreText = this.game.add.text(16, 16, 'Score: 0', { font: '32px Arial', fill: '#FFF' });
 
-		// Set physics for spaceship
-		this.game.physics.arcade.enable(player);
-		player.body.collideWorldBounds = true;
-		cursors = this.game.input.keyboard.createCursorKeys();
+    lifeText = this.game.add.text(16, 56, 'Lives: 3', { font: '32px Arial', fill: '#fff' });
 
-		// Player bullets
-		bullets = this.game.add.group();
-		set.bulletsProperties(bullets, 30, 'bullet');
+    stateText = this.game.add.text(this.game.world.centerX,this.game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
+    stateText.anchor.setTo(0.5, 0.5);
+    stateText.visible = false;
+    // Set physics for spaceship
+    this.game.physics.arcade.enable(player);
+    player.body.collideWorldBounds = true;
+    cursors = this.game.input.keyboard.createCursorKeys();
 
-		// Enemy bullets
-		enemyBullets = this.game.add.group();
-		set.bulletsProperties(enemyBullets, 3, 'enemyBullet');
+    // Player bullets
+    bullets = this.game.add.group();
+    set.bulletsProperties(bullets, 30, 'bullet');
 
 		enemies = this.game.add.group();
 		enemies.enableBody = true;
 		createEnemies(this.game, enemies);
 
 		fireButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    // Enemy bullets
+    enemyBullets = this.game.add.group();
+    set.bulletsProperties(enemyBullets, 3, 'enemyBullet');
+  }
 
-	}
 
-	update() {
+  update() {
 
-		if(player.alive) {
-			move(player, cursors, this.game);
-			fire.ship(bullets, player, this.game, fireButton);
-		}
-
-		fire.enemy(enemyBullets, enemies, this.game, player);
-		this.game.physics.arcade.overlap(enemyBullets, player, killPlayer, null, this);
+    if(player.alive) {
+      move(player, cursors, this.game);
+      fire.ship(bullets, player, this.game);
+      fire.enemy(enemyBullets, enemies, this.game, player);
+    }
 
 		function killPlayer(player, bullet) {
 			//explode player
@@ -69,7 +73,9 @@ class Main extends Phaser.State {
 
 		spacefield.tilePosition.y += backgroundVelocity;
 
-	}
+    this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
+
+  }
 
 }
 
