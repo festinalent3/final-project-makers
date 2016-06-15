@@ -22,6 +22,7 @@ var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enem
 var enemyIndex = 0;
 var topBar;
 var currentLevel = 1;
+var laser;
 
 class Main extends Phaser.State {
 
@@ -42,14 +43,22 @@ class Main extends Phaser.State {
 		stateText = this.game.add.text(this.game.world.centerX,this.game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
 		stateText.anchor.setTo(0.5, 0.5);
 		stateText.visible = false;
+		
 		// Set physics for spaceship
 		this.game.physics.arcade.enable(player);
 		player.body.collideWorldBounds = true;
+		player.animations.add('left', [0, 1, 2, 3, 4], 15, true);
+  	player.animations.add('right', [0, 1, 2, 3, 4], 15, true);
+
 		cursors = this.game.input.keyboard.createCursorKeys();
 
 		// Player bullets
 		bullets = this.game.add.group();
 		set.bulletsProperties(bullets, 30, 'bullet');
+
+		// Audio
+		laser = this.game.add.audio('laser');
+		// game.sound.setDecodedCallback([laser], start, this);
 
 		enemies = this.game.add.group();
 		enemies.enableBody = true;
@@ -66,7 +75,7 @@ class Main extends Phaser.State {
 
 		if(player.alive) {
 			move(player, cursors, this.game);
-			fire.ship(bullets, player, this.game, fireButton);
+			fire.ship(bullets, player, this.game, fireButton, laser);
 			if (enemies.countLiving() > 0) {
 				fire.enemy(enemyBullets, enemies, this.game, player);
 			}
