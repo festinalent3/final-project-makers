@@ -1,4 +1,4 @@
-export default function move(player, cursors, fireButton, game) {
+export default function move(player, cursors, game) {
 
   player.body.velocity.x = 0;
 

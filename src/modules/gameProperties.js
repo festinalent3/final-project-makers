@@ -1,6 +1,6 @@
-export  function bulletsProperties(bullets) {
+export function bulletsProperties(bullets, n, key) {
   bullets.enableBody = true;
-  bullets.createMultiple(30, 'bullet');
+  bullets.createMultiple(n, key);
   bullets.setAll('anchor.x', 0.5);
   bullets.setAll('anchor.y', 1);
   bullets.setAll('outOfBoundsKill', true);
