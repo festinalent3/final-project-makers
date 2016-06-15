@@ -17,6 +17,8 @@ var fireButton;
 var lifeText;
 var stateText;
 var numberOfBullets = 3;
+var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enemy_6"];
+var enemyIndex = 0;
 
 class Main extends Phaser.State {
 
@@ -46,8 +48,7 @@ class Main extends Phaser.State {
 
 		enemies = this.game.add.group();
 		enemies.enableBody = true;
-		createEnemies(this.game, enemies, 'enemy');
-		console.log(enemies);
+		createEnemies(this.game, enemies, enemiesArray[enemyIndex]);
 
 		// Enemy bullets
 		enemyBullets = this.game.add.group();
@@ -65,7 +66,8 @@ class Main extends Phaser.State {
 				fire.enemy(enemyBullets, enemies, this.game, player);
 			}
 			else if (enemies.countLiving() == 0) {
-				createEnemies(this.game, enemies, 'enemy');
+				// enemyIndex += 1;
+				createEnemies(this.game, enemies, enemiesArray[enemyIndex += 1]);
 				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
 			}
 			this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
