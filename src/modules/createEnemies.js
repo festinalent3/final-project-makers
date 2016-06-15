@@ -1,7 +1,7 @@
-export default function createEnemies(game, enemies) {
+export default function createEnemies(game, enemies, key) {
   for(var y = 0; y < 4; y++) {
     for(var x = 0; x < 10; x++) {
-      var enemy = enemies.create(x * 60, y * 50, 'enemy');
+      var enemy = enemies.create(x * 60, y * 50, key);
       enemy.anchor.setTo(0.5, 0.5);
     }
   }
