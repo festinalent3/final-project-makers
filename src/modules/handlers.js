@@ -25,7 +25,7 @@ export function killPlayer(player, bullet){
   }
 }
 
-export function LifeScore(lifeText) {
+export function lifeScore(lifeText) {
 	if (attackReceived){
 	  lives -= 1;
 	  lifeText.text = 'Lives: ' + lives;

@@ -30,6 +30,9 @@ class Main extends Phaser.State {
 
     lifeText = this.game.add.text(16, 56, 'Lives: 3', { font: '32px Arial', fill: '#fff' });
 
+    stateText = this.game.add.text(this.game.world.centerX,this.game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
+    stateText.anchor.setTo(0.5, 0.5);
+    stateText.visible = false;
     // Set physics for spaceship
     this.game.physics.arcade.enable(player);
     player.body.collideWorldBounds = true;
@@ -56,7 +59,7 @@ class Main extends Phaser.State {
       fire.enemy(enemyBullets, enemies, this.game, player);
     }
 
-    this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.LifeScore(lifeText), this);
+    this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
 
     this.game.physics.arcade.overlap(bullets, enemies, handler.collision, handler.calculateScore(scoreText), this);
     spacefield.tilePosition.y += backgroundVelocity;
