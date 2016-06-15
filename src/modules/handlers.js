@@ -1,16 +1,17 @@
+
 var intersecting = false;
 var score = 0;
 
 export function collision(bullet,enemy){
-	intersecting = true;
 	bullet.kill();
 	enemy.kill();
+	scoreUp();
 };
 
-export function calculateScore(scoreText) {
-	if(intersecting){
-		score = score += 10;
-		scoreText.text = 'Score:' + score;
-		intersecting = false;
-	}
-};
+export function getScore(){
+	return score;
+}
+
+function scoreUp() {
+	score += 10;
+}

@@ -12,7 +12,8 @@ var bullets;
 var enemyBullets;
 var enemies;
 var scoreText;
-var enemyBullet
+var enemyBullet;
+var fireButton;
 
 class Main extends Phaser.State {
 
@@ -42,13 +43,16 @@ class Main extends Phaser.State {
 		enemies = this.game.add.group();
 		enemies.enableBody = true;
 		createEnemies(this.game, enemies);
+
+		fireButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
 	}
 
 	update() {
 
 		if(player.alive) {
 			move(player, cursors, this.game);
-			fire.ship(bullets, player, this.game);
+			fire.ship(bullets, player, this.game, fireButton);
 		}
 
 		fire.enemy(enemyBullets, enemies, this.game, player);
@@ -56,10 +60,13 @@ class Main extends Phaser.State {
 
 		function killPlayer(player, bullet) {
 			//explode player
-			player.kill()
+			//decrease lives, if no lives left - kill player
+			player.kill();
 		}
 
-		this.game.physics.arcade.overlap(bullets, enemies, handler.collision, handler.calculateScore(scoreText), this);
+		this.game.physics.arcade.overlap(bullets, enemies, handler.collision, null, this);
+		scoreText.text = handler.getScore();
+
 		spacefield.tilePosition.y += backgroundVelocity;
 
 	}

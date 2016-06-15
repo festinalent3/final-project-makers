@@ -3,8 +3,9 @@ var fireButton;
 var shooter;
 var enemyBullet;
 
-export function ship(bullets, object, game) {
-  fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+export function ship(bullets, object, game, fireButton) {
+  // fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
   if(fireButton.isDown) {
     fireBullet(game, object, bullets);
     return true;
