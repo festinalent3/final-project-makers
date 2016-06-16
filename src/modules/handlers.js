@@ -33,3 +33,12 @@ export function lifeScore(lifeText) {
 		attackReceived = false;
 	}
 };
+
+export function getLives(){
+	return lives;
+}
+
+export function reset(){
+	lives = 3;
+	score = 0;
+}

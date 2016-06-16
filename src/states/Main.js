@@ -25,66 +25,74 @@ var currentLevel = 1;
 
 class Main extends Phaser.State {
 
-	create() {
-		// Set physics for the groups
-		this.game.physics.startSystem(Phaser.Physics.ARCADE);
+  create() {
+    // Set physics for the groups
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		spacefield = this.game.add.tileSprite(0,0,800,600,"starfield");
-		topBar = this.game.add.tileSprite(0,0,800,50,"topBar");
+    spacefield = this.game.add.tileSprite(0,0,800,600,"starfield");
+    topBar = this.game.add.tileSprite(0,0,800,50,"topBar");
 
-		backgroundVelocity = 5;
-		player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
+    backgroundVelocity = 5;
+    player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
 
-		scoreText = this.game.add.text(150, 5, 'Score: 0', { font: '22px Arial', fill: '#FFF' });
-		lifeText = this.game.add.text(20, 5, 'Lives: 3', { font: '22px Arial', fill: '#fff' });
-		levelText = this.game.add.text(700, 5, 'Level: 1', { font: '22px Arial', fill: '#fff' });
+    scoreText = this.game.add.text(150, 5, 'Score: 0', { font: '22px Arial', fill: '#FFF' });
+    lifeText = this.game.add.text(20, 5, 'Lives: 3', { font: '22px Arial', fill: '#fff' });
+    levelText = this.game.add.text(700, 5, 'Level: 1', { font: '22px Arial', fill: '#fff' });
 
-		stateText = this.game.add.text(this.game.world.centerX,this.game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
-		stateText.anchor.setTo(0.5, 0.5);
-		stateText.visible = false;
-		// Set physics for spaceship
-		this.game.physics.arcade.enable(player);
-		player.body.collideWorldBounds = true;
-		cursors = this.game.input.keyboard.createCursorKeys();
+    stateText = this.game.add.text(this.game.world.centerX,this.game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
+    stateText.anchor.setTo(0.5, 0.5);
+    stateText.visible = false;
+    // Set physics for spaceship
+    this.game.physics.arcade.enable(player);
+    player.body.collideWorldBounds = true;
+    cursors = this.game.input.keyboard.createCursorKeys();
 
-		// Player bullets
-		bullets = this.game.add.group();
-		set.bulletsProperties(bullets, 30, 'bullet');
+    // Player bullets
+    bullets = this.game.add.group();
+    set.bulletsProperties(bullets, 30, 'bullet');
 
-		enemies = this.game.add.group();
-		enemies.enableBody = true;
-		createEnemies(this.game, enemies, enemiesArray[enemyIndex]);
+    enemies = this.game.add.group();
+    enemies.enableBody = true;
+    createEnemies(this.game, enemies, enemiesArray[enemyIndex]);
 
-		// Enemy bullets
-		enemyBullets = this.game.add.group();
-		set.bulletsProperties(enemyBullets, numberOfBullets, 'enemyBullet');
+    // Enemy bullets
+    enemyBullets = this.game.add.group();
+    set.bulletsProperties(enemyBullets, numberOfBullets, 'enemyBullet');
 
-		fireButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-	}
+    fireButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+  }
 
-	update() {
+  update() {
 
-		if(player.alive) {
-			move(player, cursors, this.game);
-			fire.ship(bullets, player, this.game, fireButton);
-			if (enemies.countLiving() > 0) {
-				fire.enemy(enemyBullets, enemies, this.game, player);
-			}
-			else if (enemies.countLiving() == 0) {
-				currentLevel += 1;
-				levelText.text = 'Level: ' + currentLevel;
-				createEnemies(this.game, enemies, enemiesArray[enemyIndex += 1]);
-				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
-			}
-			this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
-		}
+    if(player.alive) {
+      move(player, cursors, this.game);
+      fire.ship(bullets, player, this.game, fireButton);
+      if (enemies.countLiving() > 0) {
+        fire.enemy(enemyBullets, enemies, this.game, player);
+      }
+      else if (enemies.countLiving() == 0) {
+        currentLevel += 1;
+        levelText.text = 'Level: ' + currentLevel;
+        createEnemies(this.game, enemies, enemiesArray[enemyIndex += 1]);
+        set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
+      }
 
-		this.game.physics.arcade.overlap(bullets, enemies, handler.collision, null, this);
-		scoreText.text = 'Score: ' + handler.getScore();
+    }
+    this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
+    if (handler.getLives() === 0){
+      enemies.removeAll(); 
+      currentLevel = 1;
+      enemyIndex = 0;
+      numberOfBullets = 3
+      this.game.state.start("GameOver");
+    }
 
-		spacefield.tilePosition.y += backgroundVelocity;
+    this.game.physics.arcade.overlap(bullets, enemies, handler.collision, null, this);
+    scoreText.text = 'Score: ' + handler.getScore();
 
-	}
+    spacefield.tilePosition.y += backgroundVelocity;
+
+  }
 
 }
 
