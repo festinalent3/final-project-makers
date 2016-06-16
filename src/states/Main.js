@@ -39,9 +39,6 @@ class Main extends Phaser.State {
     lifeText = this.game.add.text(20, 5, 'Lives: 3', { font: '22px Arial', fill: '#fff' });
     levelText = this.game.add.text(700, 5, 'Level: 1', { font: '22px Arial', fill: '#fff' });
 
-    stateText = this.game.add.text(this.game.world.centerX,this.game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
-    stateText.anchor.setTo(0.5, 0.5);
-    stateText.visible = false;
     // Set physics for spaceship
     this.game.physics.arcade.enable(player);
     player.body.collideWorldBounds = true;
