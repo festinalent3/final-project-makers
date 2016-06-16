@@ -4,7 +4,12 @@ class Preload extends Phaser.State {
 
 		// Images
 		this.game.load.image('topBar', "assets/top.png");
-		this.game.load.image('starfield', "assets/background_1.png");
+		this.game.load.image('bck_1', "assets/background_1.png");
+		this.game.load.image('bck_2', "assets/background_2.png");
+		this.game.load.image('bck_3', "assets/background_3.png");
+		this.game.load.image('bck_4', "assets/background_4.png");
+		this.game.load.image('bck_5', "assets/background_5.png");
+		this.game.load.image('bck_6', "assets/background_6.png");
 		this.game.load.spritesheet('player', "assets/ship.png", 32, 52);
 		this.game.load.image('bullet', "assets/bullet_2.png");
 		this.game.load.image('enemyBullet', "assets/enemy_bullet.png");
