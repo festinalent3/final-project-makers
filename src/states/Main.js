@@ -61,10 +61,11 @@ class Main extends Phaser.State {
 
 		enemies = this.game.add.group();
 		enemies.enableBody = true;
-		//TODO: Remove comment from the following line after creating the modules needed for enemies:
-		createMany(enemies, enemiesArray[enemyIndex], 40);
-		align(enemies);
-		// createEnemies(this.game, enemies, enemiesArray[enemyIndex]);
+		//TODO: Remove comment from the following lines after creating the modules needed for enemies:
+		// createMany(enemies, enemiesArray[enemyIndex], 40);
+		// align(enemies);
+		
+		createEnemies(this.game, enemies, enemiesArray[enemyIndex]);
 
 		// Enemy bullets
 		enemyBullets = this.game.add.group();
