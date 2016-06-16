@@ -4,14 +4,14 @@ var shooter;
 var enemyBullet;
 
 export function ship(bullets, object, game, fireButton, laser) {
-  // fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+  
+  fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
   if(fireButton.isDown) {
     fireBullet(game, object, bullets);
     laser.play();
     return true;
   }
-  // fireEnemyBullet(bullets, object);
 }
 
 function fireBullet(game, player, bullets) {

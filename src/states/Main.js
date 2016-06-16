@@ -3,9 +3,10 @@ import * as fire from '../modules/fire';
 import * as handler from '../modules/handlers';
 import * as set from "../modules/gameProperties";
 import createEnemies from '../modules/createEnemies';
+import displayText from '../modules/displayText';
 
 var spacefield;
-var backgroundVelocity;
+var backgroundVelocity = 5;
 var player;
 var cursors;
 var bullets;
@@ -33,12 +34,12 @@ class Main extends Phaser.State {
 		spacefield = this.game.add.tileSprite(0,0,800,600,"starfield");
 		topBar = this.game.add.tileSprite(0,0,800,50,"topBar");
 
-		backgroundVelocity = 5;
 		player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
 
-		scoreText = this.game.add.text(150, 5, 'Score: 0', { font: '22px Arial', fill: '#FFF' });
-		lifeText = this.game.add.text(20, 5, 'Lives: 3', { font: '22px Arial', fill: '#fff' });
-		levelText = this.game.add.text(700, 5, 'Level: 1', { font: '22px Arial', fill: '#fff' });
+		// Game dashboard
+		lifeText  = displayText(this.game, 'Lives: 3', 20, 5, { font: '22px Arial', fill: '#FFF' });
+		scoreText = displayText(this.game, 'Score: 0', 150, 5, { font: '22px Arial', fill: '#FFF' });
+		levelText = displayText(this.game, 'Level: 1', 700, 5, { font: '22px Arial', fill: '#FFF' });
 
 		// Set physics for spaceship
 		this.game.physics.arcade.enable(player);
@@ -63,7 +64,6 @@ class Main extends Phaser.State {
 		enemyBullets = this.game.add.group();
 		set.bulletsProperties(enemyBullets, numberOfBullets, 'enemyBullet');
 
-		fireButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		muteButton = this.game.input.keyboard.addKey(Phaser.Keyboard.M);
 	}
 
