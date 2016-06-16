@@ -5,7 +5,6 @@ import animate from '../modules/animate';
 import update from '../modules/update';
 
 
-
 import * as fire from '../modules/fire';
 import * as handler from '../modules/handlers';
 import * as set from "../modules/gameProperties";
@@ -80,45 +79,12 @@ class Main extends Phaser.State {
 			move(player, cursors, this.game);
 			fire.ship(bullets, player, this.game, fireButton, laser);
 			if (enemies.countLiving() > 0) {
-				// fire.enemy(enemyBullets, enemies, this.game, player);
+				fire.enemy(enemyBullets, enemies, this.game, player);
 			}
 			else if (enemies.countLiving() === 0) {
 				currentLevel += 1;
 				levelText.text = 'Level: ' + currentLevel;
-				// update(enemies, enemiesArray[enemyIndex += 1])
-
 				update(enemies, enemiesArray[enemyIndex += 1]);
-				//
-				// var index = -1;
-				// enemyIndex +=1;
-				//
-				// for(var y = 0; y < 4; y++) {
-				// 	for(var x = 0; x < 10; x++) {
-				// 		var child = enemies.getAt(index += 1)
-				// 		child.reset(x*60, y*50)
-				// 		child.loadTexture(enemiesArray[enemyIndex], 0);
-				// 	}
-				// }
-
-
-				// enemies.forEach(reset, this);
-				//
-				// function reset(child) {
-				//   // child.alive = true;
-				//   // child.visible = true;
-				// 	child.reset();
-				//
-				//   child.loadTexture(enemiesArray[enemyIndex += 1], 0);
-				//   // debugger
-				//   // child.key = enemiesArray[enemyIndex += 1]);
-				//   // enemies.resetChild(child, enemiesArray[enemyIndex += 1]);
-				// }
-				//
-				// enemies.removeAll();
-				// createMany(enemies, enemiesArray[enemyIndex += 1], 40);
-				// align(enemies);
-				// animate(enemies, this.game);
-
 				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
 			}
 			this.game.physics.arcade.overlap(bullets, enemies, handler.collision, null, this);
