@@ -20,7 +20,8 @@ var levelText;
 var stateText;
 var numberOfBullets = 3;
 var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enemy_6"];
-var enemyIndex = 0;
+var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6"];
+var levelIndex = 0;
 var topBar;
 var currentLevel = 1;
 var laser;
@@ -30,8 +31,8 @@ class Main extends Phaser.State {
 		// Set physics for the groups
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		spacefield = this.game.add.tileSprite(0,0,800,600,"starfield");
-		topBar = this.game.add.tileSprite(0,0,800,50,"topBar");
+		spacefield = this.game.add.tileSprite(0, 0, 800, 600, bckArray[levelIndex]);
+		topBar = this.game.add.tileSprite(0, 0, 800, 35, "topBar");
 
 		backgroundVelocity = 5;
 		player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
@@ -57,7 +58,7 @@ class Main extends Phaser.State {
 
 		enemies = this.game.add.group();
 		enemies.enableBody = true;
-		createEnemies(this.game, enemies, enemiesArray[enemyIndex]);
+		createEnemies(this.game, enemies, enemiesArray[levelIndex]);
 
 		// Enemy bullets
 		enemyBullets = this.game.add.group();
@@ -76,10 +77,12 @@ class Main extends Phaser.State {
 				fire.enemy(enemyBullets, enemies, this.game, player);
 			}
 			else if (enemies.countLiving() == 0) {
+				levelIndex += 1;
 				currentLevel += 1;
 				levelText.text = 'Level: ' + currentLevel;
-				createEnemies(this.game, enemies, enemiesArray[enemyIndex += 1]);
-				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
+				createEnemies(this.game, enemies, enemiesArray[levelIndex]);
+				set.background(spacefield, bckArray[levelIndex]);
+				set.bulletsProperties(enemyBullets, numberOfBullets += 2, 'enemyBullet');
 			}
 		}
 
@@ -87,7 +90,7 @@ class Main extends Phaser.State {
     if (handler.getLives() === 0){
       enemies.removeAll(); 
       currentLevel = 1;
-      enemyIndex = 0;
+      levelIndex = 0;
       numberOfBullets = 3
       this.game.state.start("GameOver");
     }
