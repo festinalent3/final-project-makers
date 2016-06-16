@@ -1,4 +1,4 @@
-
+var toggle = true;
 var intersecting = false;
 var attackReceived = false;
 var score = 0;
@@ -12,11 +12,11 @@ export function collision(bullet,enemy){
 
 export function getScore(){
 	return score;
-}
+};
 
 function scoreUp() {
 	score += 10;
-}
+};
 
 export function killPlayer(player, bullet){
 	attackReceived = true;
@@ -24,7 +24,7 @@ export function killPlayer(player, bullet){
 	if (lives < 1){
 		player.kill();
 	}
-}
+};
 
 export function lifeScore(lifeText) {
 	if (attackReceived){
@@ -42,3 +42,9 @@ export function reset(){
 	lives = 3;
 	score = 0;
 }
+
+export function toggleSound(game) {
+	toggle = !toggle;
+	game.sound.mute = toggle;
+}
+
