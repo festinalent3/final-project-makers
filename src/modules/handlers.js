@@ -34,7 +34,17 @@ export function lifeScore(lifeText) {
 	}
 };
 
+export function getLives(){
+	return lives;
+}
+
+export function reset(){
+	lives = 3;
+	score = 0;
+}
+
 export function toggleSound(game) {
 	toggle = !toggle;
 	game.sound.mute = toggle;
 }
+

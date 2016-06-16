@@ -26,7 +26,6 @@ var currentLevel = 1;
 var laser;
 
 class Main extends Phaser.State {
-
 	create() {
 		// Set physics for the groups
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -41,10 +40,6 @@ class Main extends Phaser.State {
 		lifeText = this.game.add.text(20, 5, 'Lives: 3', { font: '22px Arial', fill: '#fff' });
 		levelText = this.game.add.text(700, 5, 'Level: 1', { font: '22px Arial', fill: '#fff' });
 
-		stateText = this.game.add.text(this.game.world.centerX,this.game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
-		stateText.anchor.setTo(0.5, 0.5);
-		stateText.visible = false;
-		
 		// Set physics for spaceship
 		this.game.physics.arcade.enable(player);
 		player.body.collideWorldBounds = true;
@@ -86,8 +81,16 @@ class Main extends Phaser.State {
 				createEnemies(this.game, enemies, enemiesArray[enemyIndex += 1]);
 				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
 			}
-			this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
 		}
+
+    this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
+    if (handler.getLives() === 0){
+      enemies.removeAll(); 
+      currentLevel = 1;
+      enemyIndex = 0;
+      numberOfBullets = 3
+      this.game.state.start("GameOver");
+    }
 
 		this.game.physics.arcade.overlap(bullets, enemies, handler.collision, null, this);
 		scoreText.text = 'Score: ' + handler.getScore();
