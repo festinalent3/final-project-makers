@@ -14,6 +14,7 @@ var enemies;
 var scoreText;
 var enemyBullet;
 var fireButton;
+var muteButton;
 var lifeText;
 var levelText;
 var stateText;
@@ -69,6 +70,7 @@ class Main extends Phaser.State {
 		set.bulletsProperties(enemyBullets, numberOfBullets, 'enemyBullet');
 
 		fireButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		muteButton = this.game.input.keyboard.addKey(Phaser.Keyboard.M);
 	}
 
 	update() {
@@ -92,6 +94,11 @@ class Main extends Phaser.State {
 		scoreText.text = 'Score: ' + handler.getScore();
 
 		spacefield.tilePosition.y += backgroundVelocity;
+
+		// Mute if Key M is pressed
+		if(muteButton.isDown) {
+			handler.toggleSound(this.game);
+		}
 
 	}
 
