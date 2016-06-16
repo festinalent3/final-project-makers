@@ -10,5 +10,4 @@ export default function move(player, cursors, game) {
       player.body.velocity.x = 350;
       player.animations.play('left');
   }
-
 }

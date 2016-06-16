@@ -59,7 +59,6 @@ class Main extends Phaser.State {
 
 		// Audio
 		laser = this.game.add.audio('laser');
-		// game.sound.setDecodedCallback([laser], start, this);
 
 		enemies = this.game.add.group();
 		enemies.enableBody = true;
