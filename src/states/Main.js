@@ -1,6 +1,7 @@
 import move from '../modules/moves';
 import createMany from '../modules/createMany';
 import align from '../modules/align';
+import animate from '../modules/animate';
 
 
 import * as fire from '../modules/fire';
@@ -60,14 +61,11 @@ class Main extends Phaser.State {
 		laser = this.game.add.audio('laser');
 
 		enemies = this.game.add.group();
-		enemies.enableBody = true;
-		//TODO: Remove comment from the following lines after creating the modules needed for enemies:
-		// createMany(enemies, enemiesArray[enemyIndex], 40);
-		// align(enemies);
 		
-		createEnemies(this.game, enemies, enemiesArray[enemyIndex]);
-
-		// Enemy bullets
+		createMany(enemies, enemiesArray[enemyIndex], 40);
+		align(enemies);
+    animate(enemies, this.game);
+		
 		enemyBullets = this.game.add.group();
 		set.bulletsProperties(enemyBullets, numberOfBullets, 'enemyBullet');
 
