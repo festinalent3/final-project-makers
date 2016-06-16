@@ -6,6 +6,7 @@ var lives = 3;
 
 export function collision(bullet,enemy){
 	bullet.kill();
+	console.log(enemy)
 	enemy.kill();
 	scoreUp();
 };
@@ -47,4 +48,3 @@ export function toggleSound(game) {
 	toggle = !toggle;
 	game.sound.mute = toggle;
 }
-

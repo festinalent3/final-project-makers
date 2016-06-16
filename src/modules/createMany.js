@@ -3,7 +3,8 @@ export default function createMany(group, key, nr) {
 
   for (var i = 0; i < nr; i++)
   {
-      group.create(i*10, 0, key);
+      var enemy = group.create(i*10, 0, key);
+      console.log(enemy)
   }
 
 }

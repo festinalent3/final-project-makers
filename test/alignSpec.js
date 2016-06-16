@@ -1,6 +1,6 @@
 import align from '../src/modules/align';
 
-describe('createMany', function() {
+describe('align', function() {
 
   var group;
   var nr;
@@ -25,12 +25,10 @@ describe('createMany', function() {
       }
     };
 
-    spyOn(group,'getAt').and.returnValue(child);
-    spyOn(child,'reset');
-    spyOn(child.anchor,'setTo');
+    spyOn(group, 'getAt').and.returnValue(child);
+    spyOn(child, 'reset');
+    spyOn(child.anchor, 'setTo');
   });
-
-
 
   it('aligns each child of the group', function(){
     align(group);
