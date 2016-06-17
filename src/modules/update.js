@@ -9,7 +9,7 @@ export default function update(group, level) {
       for(var x = 0; x < 10; x++) {
         var child = group.getAt(index += 1)
         child.reset(x*60, y*50)
-        child.loadTexture(key, 0);
+        child.loadTexture(enemiesArray[level -1], 0);
       }
     }
   }

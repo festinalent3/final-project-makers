@@ -10,9 +10,10 @@ import * as set from "../modules/gameProperties";
 import * as score from "../modules/score"
 import * as life from "../modules/life"
 import * as sound from "../modules/sound"
+import * as background from "../modules/background"
+
 
 var spacefield;
-var backgroundVelocity = 5;
 var player;
 var cursors;
 var bullets;
@@ -24,8 +25,6 @@ var lifeText;
 var levelText;
 var stateText;
 var numberOfBullets = 3;
-// var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enemy_6"];
-// var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6"];
 var levelIndex = 0;
 var topBar;
 var currentLevel = 1;
@@ -36,8 +35,7 @@ class Main extends Phaser.State {
 		// Set physics for the groups
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		// spacefield = this.game.add.tileSprite(0, 0, 800, 600, bckArray[levelIndex]);
-		spacefield = this.game.add.tileSprite(0, 0, 800, 600, "bck_1");
+		background.create(this.game);
 		topBar = this.game.add.tileSprite(0, 0, 800, 35, "topBar");
 
 		player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
@@ -64,7 +62,8 @@ class Main extends Phaser.State {
 
 		// Enemies
 		enemies = this.game.add.group();
-		createMany(enemies, enemiesArray[levelIndex], 40);
+		// createMany(enemies, enemiesArray[levelIndex], 40);
+		createMany(enemies, 'enemy_1', 40);
 		align(enemies);
 		animate(enemies, this.game);
 
@@ -82,21 +81,26 @@ class Main extends Phaser.State {
 			move(player, cursors, this.game);
 			fire.ship(bullets, player, this.game, laser);
 			fire.enemy(enemyBullets, enemies, this.game, player);
-
-			if (enemies.countLiving() === 0) {
-				currentLevel += 1;
-				levelText.text = 'Level: ' + currentLevel;
-				update(enemies, enemiesArray[levelIndex += 1]);
-				// set.background(spacefield, bckArray[levelIndex]);
-				set.background(spacefield, currentLevel);
-				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
-			}
-
 			this.game.physics.arcade.overlap(bullets, enemies, score.update, null, this);
 			scoreText.text = 'Score: ' + score.get();
+			this.game.physics.arcade.overlap(enemyBullets, player, life.reduce, life.count(lifeText), this);
 		}
 
-		this.game.physics.arcade.overlap(enemyBullets, player, life.reduce, life.count(lifeText), this);
+		if (enemies.countLiving() === 0) {
+			currentLevel += 1;
+			levelText.text = 'Level: ' + currentLevel;
+			update(enemies, currentLevel);
+			background.update(currentLevel);
+			set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
+		}
+
+		this.checkGameOver();
+
+		background.get().tilePosition.y += background.velocity();
+
+	}
+
+	checkGameOver() {
 		if (life.get() === 0){
 			enemies.removeAll();
 			currentLevel = 1;
@@ -104,9 +108,6 @@ class Main extends Phaser.State {
 			numberOfBullets = 3
 			this.game.state.start("GameOver");
 		}
-
-		spacefield.tilePosition.y += backgroundVelocity;
-
 	}
 
 }

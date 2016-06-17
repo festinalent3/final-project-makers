@@ -10,4 +10,7 @@ export function toggle(game) {
 	}
 }
 
+export function reset() {
+	toggler = true;
+}
 //TODO: Unit test and add reset function for toggler when gameover
