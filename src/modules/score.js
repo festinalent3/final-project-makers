@@ -2,7 +2,6 @@ var score = 0;
 
 export function update(bullet,enemy){
 	bullet.kill();
-	console.log(enemy)
 	enemy.kill();
 	scoreUp();
 };
