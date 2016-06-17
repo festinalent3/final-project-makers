@@ -8,6 +8,7 @@ import displayText from '../modules/displayText';
 import * as fire from '../modules/fire';
 import * as handler from '../modules/handlers';
 import * as set from "../modules/gameProperties";
+import * as score from "../modules/score"
 
 
 var spacefield;
@@ -91,8 +92,8 @@ class Main extends Phaser.State {
 				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
 			}
 
-			this.game.physics.arcade.overlap(bullets, enemies, handler.collision, null, this);
-			scoreText.text = 'Score: ' + handler.getScore();
+			this.game.physics.arcade.overlap(bullets, enemies, score.update, null, this);
+			scoreText.text = 'Score: ' + score.get();
 		}
 
 		this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);

@@ -4,7 +4,7 @@ var attackReceived = false;
 var score = 0;
 var lives = 3;
 
-export function collision(bullet,enemy){
+export function updateScore(bullet,enemy){
 	bullet.kill();
 	console.log(enemy)
 	enemy.kill();
