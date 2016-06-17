@@ -2,11 +2,13 @@ import move from '../modules/moves';
 import createMany from '../modules/createMany';
 import align from '../modules/align';
 import animate from '../modules/animate';
+import update from '../modules/update';
+import displayText from '../modules/displayText';
+
 import * as fire from '../modules/fire';
 import * as handler from '../modules/handlers';
 import * as set from "../modules/gameProperties";
-import createEnemies from '../modules/createEnemies';
-import displayText from '../modules/displayText';
+
 
 var spacefield;
 var backgroundVelocity = 5;
@@ -49,7 +51,7 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.enable(player);
 		player.body.collideWorldBounds = true;
 		player.animations.add('left', [0, 1, 2, 3, 4], 15, true);
-  	player.animations.add('right', [0, 1, 2, 3, 4], 15, true);
+		player.animations.add('right', [0, 1, 2, 3, 4], 15, true);
 
 		cursors = this.game.input.keyboard.createCursorKeys();
 
@@ -64,11 +66,11 @@ class Main extends Phaser.State {
 		// Enemies
 		enemies = this.game.add.group();
 		enemies.enableBody = true;
-		createMany(enemies, enemiesArray[enemyIndex], 40);
+		createMany(enemies, enemiesArray[levelIndex], 40);
 		align(enemies);
-    animate(enemies, this.game);		
+		animate(enemies, this.game);
 		enemyBullets = this.game.add.group();
-		set.bulletsProperties(enemyBullets, numberOfBullets, 'enemyBullet');		
+		set.bulletsProperties(enemyBullets, numberOfBullets, 'enemyBullet');
 	}
 
 	update() {
@@ -79,27 +81,30 @@ class Main extends Phaser.State {
 			if (enemies.countLiving() > 0) {
 				fire.enemy(enemyBullets, enemies, this.game, player);
 			}
-			else if (enemies.countLiving() == 0) {
-				levelIndex += 1;
+
+			else if (enemies.countLiving() === 0) {
 				currentLevel += 1;
 				levelText.text = 'Level: ' + currentLevel;
-				createEnemies(this.game, enemies, enemiesArray[levelIndex]);
+				update(enemies, enemiesArray[levelIndex += 1]);
 				set.background(spacefield, bckArray[levelIndex]);
-				set.bulletsProperties(enemyBullets, numberOfBullets += 2, 'enemyBullet');
+
+				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
 			}
+
+			this.game.physics.arcade.overlap(bullets, enemies, handler.collision, null, this);
+			scoreText.text = 'Score: ' + handler.getScore();
 		}
 
-    this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
-    if (handler.getLives() === 0){
-      enemies.removeAll();
-      currentLevel = 1;
-      levelIndex = 0;
-      numberOfBullets = 3
-      this.game.state.start("GameOver");
-    }
+		this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
+		if (handler.getLives() === 0){
+			enemies.removeAll();
+			currentLevel = 1;
+			levelIndex = 0;
+			numberOfBullets = 3
+			this.game.state.start("GameOver");
+		}
 
-		this.game.physics.arcade.overlap(bullets, enemies, handler.collision, null, this);
-		scoreText.text = 'Score: ' + handler.getScore();
+
 
 		spacefield.tilePosition.y += backgroundVelocity;
 
