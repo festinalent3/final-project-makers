@@ -31,6 +31,7 @@ var laser;
 
 class Main extends Phaser.State {
 	create() {
+
 		// Set physics for the groups
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -103,6 +104,7 @@ class Main extends Phaser.State {
 			enemies.removeAll();
 			currentLevel = 1;
 			numberOfBullets = 3
+			console.log(currentLevel);
 			this.game.state.start("GameOver");
 		}
 	}
