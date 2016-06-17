@@ -2,6 +2,7 @@ class Preload extends Phaser.State {
 
 	preload() {
 
+		this.loading = this.game.add.tileSprite(0, 0, 800, 600, 'loading');
 		// Images
 		this.game.load.image('topBar', "assets/top.png");
 		this.game.load.image('bck_1', "assets/background_1.png");
