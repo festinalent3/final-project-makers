@@ -6,14 +6,10 @@ import update from '../modules/update';
 import displayText from '../modules/displayText';
 
 import * as fire from '../modules/fire';
-import * as handler from '../modules/handlers';
 import * as set from "../modules/gameProperties";
 import * as score from "../modules/score"
 import * as life from "../modules/life"
 import * as sound from "../modules/sound"
-
-
-
 
 var spacefield;
 var backgroundVelocity = 5;
