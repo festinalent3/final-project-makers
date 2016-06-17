@@ -24,8 +24,8 @@ var lifeText;
 var levelText;
 var stateText;
 var numberOfBullets = 3;
-var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enemy_6"];
-var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6"];
+// var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enemy_6"];
+// var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6"];
 var levelIndex = 0;
 var topBar;
 var currentLevel = 1;
@@ -36,7 +36,8 @@ class Main extends Phaser.State {
 		// Set physics for the groups
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		spacefield = this.game.add.tileSprite(0, 0, 800, 600, bckArray[levelIndex]);
+		// spacefield = this.game.add.tileSprite(0, 0, 800, 600, bckArray[levelIndex]);
+		spacefield = this.game.add.tileSprite(0, 0, 800, 600, "bck_1");
 		topBar = this.game.add.tileSprite(0, 0, 800, 35, "topBar");
 
 		player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
@@ -86,7 +87,8 @@ class Main extends Phaser.State {
 				currentLevel += 1;
 				levelText.text = 'Level: ' + currentLevel;
 				update(enemies, enemiesArray[levelIndex += 1]);
-				set.background(spacefield, bckArray[levelIndex]);
+				// set.background(spacefield, bckArray[levelIndex]);
+				set.background(spacefield, currentLevel);
 				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
 			}
 

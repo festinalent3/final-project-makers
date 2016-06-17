@@ -9,3 +9,5 @@ export function toggle(game) {
 		game.sound.mute = toggler;
 	}
 }
+
+//TODO: Unit test and add reset function for toggler when gameover

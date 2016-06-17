@@ -1,3 +1,6 @@
+var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6"];
+var currentLVL = 1;
+
 export function bulletsProperties(bullets, n, key) {
   bullets.enableBody = true;
   bullets.createMultiple(n, key);
@@ -7,7 +10,9 @@ export function bulletsProperties(bullets, n, key) {
   bullets.setAll('checkWorldBounds', true);
 }
 
-export function background(object, key){
-	object.key = key;
-	object.loadTexture(key, 0);
+export function background(object, level){
+  if(level > currentLVL)
+  {
+    object.loadTexture(bckArray[level - 1], 0);
+  }
 }
