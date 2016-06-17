@@ -1,4 +1,3 @@
-import * as handler from '../modules/handlers';
 import displayText from '../modules/displayText';
 import * as reset from '../helpers/reset';
 
