@@ -4,8 +4,8 @@ var fireButton;
 var shooter;
 var enemyBullet;
 
-export function ship(bullets, object, game, fireButton, laser) {
-  
+export function ship(bullets, object, game, laser) {
+
   fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
   if(fireButton.isDown) {
@@ -28,10 +28,12 @@ function fireBullet(game, player, bullets) {
 }
 
 export function enemy(enemyBullets, enemies, game, player) {
-  shooter = enemies.getRandom(enemies.getIndex(enemies.getFirstAlive(false)), (enemies.countLiving()));
-  enemyBullet = enemyBullets.getFirstExists(false);
-  if(enemyBullet) {
-    enemyBullet.reset(shooter.body.x, shooter.body.y);
-    game.physics.arcade.moveToObject(enemyBullet, player, 120);
+  if (enemies.countLiving() > 0) {
+    shooter = enemies.getRandom(enemies.getIndex(enemies.getFirstAlive(false)), (enemies.countLiving()));
+    enemyBullet = enemyBullets.getFirstExists(false);
+    if(enemyBullet) {
+      enemyBullet.reset(shooter.body.x, shooter.body.y);
+      game.physics.arcade.moveToObject(enemyBullet, player, 120);
+    }
   }
 }

@@ -16,8 +16,10 @@ describe('score', function() {
       kill: function() {}
     };
 
-    spyOn(bullet,'kill');
-    spyOn(enemy,'kill');
+    spyOn(bullet, 'kill');
+    spyOn(enemy, 'kill');
+
+    score.reset();
   });
 
 
@@ -32,13 +34,11 @@ describe('score', function() {
     score.update(bullet, enemy);
     expect(bullet.kill).toHaveBeenCalled();
     expect(enemy.kill).toHaveBeenCalled();
-    score.reset();
   });
 
   it('increases the score', function(){
     score.update(bullet, enemy);
     expect(score.get()).toEqual(scoreIncrease);
-    score.reset();
   });
 
 });
