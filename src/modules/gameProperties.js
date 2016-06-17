@@ -6,3 +6,8 @@ export function bulletsProperties(bullets, n, key) {
   bullets.setAll('outOfBoundsKill', true);
   bullets.setAll('checkWorldBounds', true);
 }
+
+export function background(object, key){
+	object.key = key;
+	object.loadTexture(key, 0);
+}
