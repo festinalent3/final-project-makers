@@ -2,7 +2,7 @@ class Preload extends Phaser.State {
 
 	preload() {
 
-		this.loading = this.game.add.tileSprite(0, 0, 800, 600, 'loading');
+		this.game.add.tileSprite(0, 0, 800, 600, 'loading');
 		// Images
 		this.game.load.image('topBar', "assets/top.png");
 		this.game.load.image('bck_1', "assets/background_1.png");
@@ -20,6 +20,7 @@ class Preload extends Phaser.State {
 		this.game.load.image('enemy_4', "assets/enemy_4.png");
 		this.game.load.image('enemy_5', "assets/enemy_5.png");
 		this.game.load.image('enemy_6', "assets/enemy_6.png");
+		this.game.load.image('game_over', "assets/game_over.png");
 
 		// Audio
 		this.game.load.audio('laser', 'assets/laser.wav');

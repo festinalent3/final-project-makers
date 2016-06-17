@@ -4,9 +4,7 @@ import displayText from '../modules/displayText';
 class GameOver extends Phaser.State {
 
 	create() {
-		var msg = displayText(this.game, "GAME OVER \n Click to restart", this.game.world.centerX, this.game.world.centerY, { font: '84px Arial', fill: '#fff' } );
-		msg.anchor.x = 0.5;
-		msg.anchor.y = 0.5;
+		this.game.add.tileSprite(0, 0, 800, 600, 'game_over');
 		this.game.input.onTap.addOnce(this.restartGame, this);
 	}
 
