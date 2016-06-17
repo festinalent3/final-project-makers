@@ -11,6 +11,8 @@ import * as score from "../modules/score"
 import * as life from "../modules/life"
 import * as sound from "../modules/sound"
 
+import * as reset from '../helpers/reset';
+
 var spacefield;
 var backgroundVelocity = 5;
 var player;
@@ -83,6 +85,13 @@ class Main extends Phaser.State {
 			fire.enemy(enemyBullets, enemies, this.game, player);
 
 			if (enemies.countLiving() === 0) {
+        if (currentLevel === 6){
+          player.kill();
+          var msg = displayText(this.game, "Cogratulations!!!, \nYou Won, \nRestart to continue", this.game.world.centerX, this.game.world.centerY, { font: '84px Arial', fill: '#fff' } );
+          msg.anchor.x = 0.5;
+          msg.anchor.y = 0.5;
+          this.game.input.onTap.addOnce(this.restartGame,this);
+        }
 				currentLevel += 1;
 				levelText.text = 'Level: ' + currentLevel;
 				update(enemies, enemiesArray[levelIndex += 1]);
@@ -106,6 +115,13 @@ class Main extends Phaser.State {
 		spacefield.tilePosition.y += backgroundVelocity;
 
 	}
+  restartGame() {
+    reset.all();
+    currentLevel = 1;
+    levelIndex = 0;
+    numberOfBullets = 3
+    this.game.state.start("Main");
+  }
 
 }
 
