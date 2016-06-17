@@ -9,6 +9,8 @@ import * as fire from '../modules/fire';
 import * as handler from '../modules/handlers';
 import * as set from "../modules/gameProperties";
 import * as score from "../modules/score"
+import * as life from "../modules/life"
+
 
 
 var spacefield;
@@ -96,8 +98,8 @@ class Main extends Phaser.State {
 			scoreText.text = 'Score: ' + score.get();
 		}
 
-		this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
-		if (handler.getLives() === 0){
+		this.game.physics.arcade.overlap(enemyBullets, player, life.reduce, life.count(lifeText), this);
+		if (life.get() === 0){
 			enemies.removeAll();
 			currentLevel = 1;
 			levelIndex = 0;
