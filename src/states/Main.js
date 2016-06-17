@@ -8,6 +8,11 @@ import displayText from '../modules/displayText';
 import * as fire from '../modules/fire';
 import * as handler from '../modules/handlers';
 import * as set from "../modules/gameProperties";
+import * as score from "../modules/score"
+import * as life from "../modules/life"
+import * as sound from "../modules/sound"
+
+
 
 
 var spacefield;
@@ -19,8 +24,6 @@ var enemyBullets;
 var enemies;
 var scoreText;
 var enemyBullet;
-var fireButton;
-var muteButton;
 var lifeText;
 var levelText;
 var stateText;
@@ -61,42 +64,42 @@ class Main extends Phaser.State {
 
 		// Audio
 		laser = this.game.add.audio('laser');
-		muteButton = this.game.input.keyboard.addKey(Phaser.Keyboard.M);
 
 		// Enemies
 		enemies = this.game.add.group();
-		enemies.enableBody = true;
 		createMany(enemies, enemiesArray[levelIndex], 40);
 		align(enemies);
 		animate(enemies, this.game);
+
+		// Enemy bullets
 		enemyBullets = this.game.add.group();
 		set.bulletsProperties(enemyBullets, numberOfBullets, 'enemyBullet');
 	}
 
 	update() {
 
+		sound.toggle(this.game);
+
+
 		if(player.alive) {
 			move(player, cursors, this.game);
-			fire.ship(bullets, player, this.game, fireButton, laser);
-			if (enemies.countLiving() > 0) {
-				fire.enemy(enemyBullets, enemies, this.game, player);
-			}
+			fire.ship(bullets, player, this.game, laser);
+			fire.enemy(enemyBullets, enemies, this.game, player);
 
-			else if (enemies.countLiving() === 0) {
+			if (enemies.countLiving() === 0) {
 				currentLevel += 1;
 				levelText.text = 'Level: ' + currentLevel;
 				update(enemies, enemiesArray[levelIndex += 1]);
 				set.background(spacefield, bckArray[levelIndex]);
-
 				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
 			}
 
-			this.game.physics.arcade.overlap(bullets, enemies, handler.collision, null, this);
-			scoreText.text = 'Score: ' + handler.getScore();
+			this.game.physics.arcade.overlap(bullets, enemies, score.update, null, this);
+			scoreText.text = 'Score: ' + score.get();
 		}
 
-		this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
-		if (handler.getLives() === 0){
+		this.game.physics.arcade.overlap(enemyBullets, player, life.reduce, life.count(lifeText), this);
+		if (life.get() === 0){
 			enemies.removeAll();
 			currentLevel = 1;
 			levelIndex = 0;
@@ -104,14 +107,7 @@ class Main extends Phaser.State {
 			this.game.state.start("GameOver");
 		}
 
-
-
 		spacefield.tilePosition.y += backgroundVelocity;
-
-		// Mute if Key M is pressed
-		if(muteButton.isDown) {
-			handler.toggleSound(this.game);
-		}
 
 	}
 

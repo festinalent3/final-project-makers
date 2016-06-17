@@ -1,5 +1,6 @@
 import * as handler from '../modules/handlers';
 import displayText from '../modules/displayText';
+import * as reset from '../helpers/reset';
 
 class GameOver extends Phaser.State {
 
@@ -9,7 +10,7 @@ class GameOver extends Phaser.State {
 	}
 
 	restartGame() {
-		handler.reset();
+		reset.all();
 		this.game.state.start("Main");
 	}
 }
