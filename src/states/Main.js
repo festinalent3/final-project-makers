@@ -25,7 +25,6 @@ var lifeText;
 var levelText;
 var stateText;
 var numberOfBullets = 3;
-var levelIndex = 0;
 var topBar;
 var currentLevel = 1;
 var laser;
@@ -62,7 +61,6 @@ class Main extends Phaser.State {
 
 		// Enemies
 		enemies = this.game.add.group();
-		// createMany(enemies, enemiesArray[levelIndex], 40);
 		createMany(enemies, 'enemy_1', 40);
 		align(enemies);
 		animate(enemies, this.game);
@@ -104,7 +102,6 @@ class Main extends Phaser.State {
 		if (life.get() === 0){
 			enemies.removeAll();
 			currentLevel = 1;
-			levelIndex = 0;
 			numberOfBullets = 3
 			this.game.state.start("GameOver");
 		}
