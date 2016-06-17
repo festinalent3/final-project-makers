@@ -1,4 +1,5 @@
 import move from '../modules/moves';
+import createMany from '../modules/createMany';
 import * as fire from '../modules/fire';
 import * as handler from '../modules/handlers';
 import * as set from "../modules/gameProperties";
@@ -59,7 +60,10 @@ class Main extends Phaser.State {
 
 		enemies = this.game.add.group();
 		enemies.enableBody = true;
-		createEnemies(this.game, enemies, enemiesArray[levelIndex]);
+		
+		//TODO: Remove comment from the following line after creating the modules needed for enemies:
+		// createMany(enemies, enemiesArray[enemyIndex], 40);
+		createEnemies(this.game, enemies, enemiesArray[enemyIndex]);
 
 		// Enemy bullets
 		enemyBullets = this.game.add.group();
@@ -88,7 +92,7 @@ class Main extends Phaser.State {
 
     this.game.physics.arcade.overlap(enemyBullets, player, handler.killPlayer, handler.lifeScore(lifeText), this);
     if (handler.getLives() === 0){
-      enemies.removeAll(); 
+      enemies.removeAll();
       currentLevel = 1;
       levelIndex = 0;
       numberOfBullets = 3
