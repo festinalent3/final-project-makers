@@ -23,6 +23,7 @@ var enemyBullet;
 var lifeText;
 var levelText;
 var stateText;
+var soundText;
 var numberOfBullets = 3;
 var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enemy_6"];
 var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6"];
@@ -45,6 +46,7 @@ class Main extends Phaser.State {
 		lifeText  = displayText(this.game, 'Lives: 3', 20, 5, { font: '22px Arial', fill: '#FFF' });
 		scoreText = displayText(this.game, 'Score: 0', 150, 5, { font: '22px Arial', fill: '#FFF' });
 		levelText = displayText(this.game, 'Level: 1', 700, 5, { font: '22px Arial', fill: '#FFF' });
+		soundText = displayText(this.game, 'Sound: on', 450, 5, { font: '22px Arial', fill: '#FFF' });
 
 		// Set physics for spaceship
 		this.game.physics.arcade.enable(player);
@@ -74,7 +76,7 @@ class Main extends Phaser.State {
 
 	update() {
 
-		sound.toggle(this.game);
+		sound.toggle(this.game, soundText);
 
 
 		if(player.alive) {
