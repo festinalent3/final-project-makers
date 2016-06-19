@@ -46,7 +46,7 @@ class Main extends Phaser.State {
 		lifeText  = displayText(this.game, 'Lives: 3', 20, 5, { font: '22px Arial', fill: '#FFF' });
 		scoreText = displayText(this.game, 'Score: 0', 150, 5, { font: '22px Arial', fill: '#FFF' });
 		levelText = displayText(this.game, 'Level: 1', 700, 5, { font: '22px Arial', fill: '#FFF' });
-		soundText = displayText(this.game, 'Sound: on', 450, 5, { font: '22px Arial', fill: '#FFF' });
+		soundText = displayText(this.game, 'Sound: on', 550, 5, { font: '22px Arial', fill: '#FFF' });
 
 		// Set physics for spaceship
 		this.game.physics.arcade.enable(player);
