@@ -10,8 +10,4 @@ export default function animate(group, game) {
 		game.add.tween(group).to( {y:250}, 10000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 	}
 
-	function moveSideWays() {
-		return game.add.tween(group).to( {x:150}, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
-	}
-
 }
