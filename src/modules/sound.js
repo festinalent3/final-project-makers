@@ -7,7 +7,7 @@ export function toggle(game, soundText) {
 	if(muteButton.isDown) {
 		toggler = !toggler;
 		game.sound.mute = toggler;
-		soundText.text = (toggler) ? "Sound: Off" : "Sound: On";
+		soundText.text = (toggler) ? "Sound: OFF" : "Sound: ON";
 	}
 }
 
