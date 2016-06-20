@@ -1,4 +1,4 @@
-var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6"];
+var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6", "bck_1"];
 var currentLVL = 1;
 var currentBck;
 var backgroundVelocity = 5;

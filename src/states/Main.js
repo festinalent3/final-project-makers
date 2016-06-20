@@ -116,14 +116,12 @@ class Main extends Phaser.State {
 		levelText.text = 'Level: ' + currentLevel;
 		update(enemies, currentLevel);
 		background.update(currentLevel);
-		bullets.update(enemyBullets, numberOfBullets += 3);
+		bullets.update(enemyBullets, numberOfBullets += 1);
 	}
 	
   restartGame() {
     reset.all();
-    currentLevel = 1;
-    levelIndex = 0;
-    numberOfBullets = 3
+    resetGame();
     this.game.state.start("Main");
   }
 
