@@ -3,6 +3,13 @@ class Preload extends Phaser.State {
 	preload() {
 
 		this.game.add.tileSprite(0, 0, 800, 600, 'loading');
+		this.loaderBg = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBg');
+    this.loaderBar = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar');
+    this.loaderBg.anchor.setTo(0.5);
+    this.loaderBar.anchor.setTo(0.5);
+
+    this.game.load.setPreloadSprite(this.loaderBar);
+
 		// Images
 		this.game.load.image('topBar', "assets/top.png");
 		this.game.load.image('bck_1', "assets/background_1.png");
