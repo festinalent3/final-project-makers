@@ -1,5 +1,5 @@
 var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enemy_6", "enemy_7"];
-var all;
+
 class Enemies {
 
   constructor(game, nr){
@@ -50,8 +50,9 @@ class Enemies {
   };
 
 
-  update(level) {
-    this.all.forEach(function(enemy) {
+  update(level, group) {
+    group = group || this.all;
+    group.forEach(function(enemy) {
       enemy.revive();
       enemy.loadTexture(enemiesArray[level -1], 0);
     }, this);
