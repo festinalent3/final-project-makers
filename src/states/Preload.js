@@ -20,7 +20,9 @@ class Preload extends Phaser.State {
 		this.game.load.image('enemy_4', "assets/enemy_4.png");
 		this.game.load.image('enemy_5', "assets/enemy_5.png");
 		this.game.load.image('enemy_6', "assets/enemy_6.png");
+		this.game.load.image('enemy_7', "assets/enemy_7.png");
 		this.game.load.image('game_over', "assets/game_over.png");
+		this.game.load.image('you_won', "assets/you_won.png");
 
 		// Audio
 		this.game.load.audio('laser', 'assets/laser.wav');

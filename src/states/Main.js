@@ -11,6 +11,8 @@ import * as score from "../modules/score"
 import * as life from "../modules/life"
 import * as sound from "../modules/sound"
 
+import * as reset from '../helpers/reset';
+
 var spacefield;
 var backgroundVelocity = 5;
 var player;
@@ -24,8 +26,8 @@ var lifeText;
 var levelText;
 var stateText;
 var numberOfBullets = 3;
-var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enemy_6"];
-var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6"];
+var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enemy_6", "enemy_7"];
+var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6", "bck_1"];
 var levelIndex = 0;
 var topBar;
 var currentLevel = 1;
@@ -83,12 +85,21 @@ class Main extends Phaser.State {
 			fire.enemy(enemyBullets, enemies, this.game, player);
 
 			if (enemies.countLiving() === 0) {
+        enemyBullets.removeAll();
+        if (levelIndex === 6){
+          player.kill();          
+          this.game.add.tileSprite(0, 0, 800, 600, 'you_won');
+          this.game.add.tileSprite(0, 0, 800, 35, "topBar");
+          scoreText = displayText(this.game, '', 350, 5, { font: '22px Arial', fill: '#D4FF2A' });
+          scoreText.text = 'Score: ' + score.get();
+          this.game.input.onTap.addOnce(this.restartGame,this);
+        }
 				currentLevel += 1;
 				levelText.text = 'Level: ' + currentLevel;
 				update(enemies, enemiesArray[levelIndex += 1]);
 				set.background(spacefield, bckArray[levelIndex]);
 				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
-			}
+      }
 
 			this.game.physics.arcade.overlap(bullets, enemies, score.update, null, this);
 			scoreText.text = 'Score: ' + score.get();
@@ -106,6 +117,13 @@ class Main extends Phaser.State {
 		spacefield.tilePosition.y += backgroundVelocity;
 
 	}
+  restartGame() {
+    reset.all();
+    currentLevel = 1;
+    levelIndex = 0;
+    numberOfBullets = 3
+    this.game.state.start("Main");
+  }
 
 }
 
