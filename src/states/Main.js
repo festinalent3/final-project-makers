@@ -122,7 +122,7 @@ class Main extends Phaser.State {
 	}
 
   gameWon(){
-    if(currentLevel === totalNoOfLevels){
+    if(currentLevel === totalNoOfLevels) {
       this.resetGame();
       this.game.state.start("GameWon");
     }
