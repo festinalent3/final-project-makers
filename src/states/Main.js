@@ -26,8 +26,8 @@ var lifeText;
 var levelText;
 var stateText;
 var numberOfBullets = 3;
-var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enemy_6"];
-var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6"];
+var enemiesArray = ["enemy_1", "enemy_2", "enemy_3", "enemy_4", "enemy_5", "enemy_6", "enemy_7"];
+var bckArray = ["bck_1", "bck_2", "bck_3", "bck_4", "bck_5", "bck_6", "bck_1"];
 var levelIndex = 0;
 var topBar;
 var currentLevel = 1;
@@ -86,11 +86,12 @@ class Main extends Phaser.State {
 
 			if (enemies.countLiving() === 0) {
         enemyBullets.removeAll();
-        if (currentLevel === 6){
-          player.kill();
-          var msg = displayText(this.game, "Cogratulations!!!, \nYou Won, \nClick to restart", this.game.world.centerX, this.game.world.centerY, { font: '84px Arial', fill: '#fff' } );
-          msg.anchor.x = 0.5;
-          msg.anchor.y = 0.5;
+        if (levelIndex === 6){
+          player.kill();          
+          this.game.add.tileSprite(0, 0, 800, 600, 'you_won');
+          this.game.add.tileSprite(0, 0, 800, 35, "topBar");
+          scoreText = displayText(this.game, '', 350, 5, { font: '22px Arial', fill: '#D4FF2A' });
+          scoreText.text = 'Score: ' + score.get();
           this.game.input.onTap.addOnce(this.restartGame,this);
         }
 				currentLevel += 1;
