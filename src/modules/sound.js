@@ -10,3 +10,8 @@ export function toggle(game, soundText) {
 		soundText.text = (toggler) ? "Sound: Off" : "Sound: On";
 	}
 }
+
+export function reset() {
+	toggler = true;
+}
+//TODO: Unit test and add reset function for toggler when gameover
