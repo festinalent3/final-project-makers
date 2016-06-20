@@ -6,7 +6,6 @@ import update from '../modules/update';
 import displayText from '../modules/displayText';
 
 import * as fire from '../modules/fire';
-// import * as set from "../modules/gameProperties";
 import * as score from "../modules/score"
 import * as life from "../modules/life"
 import * as sound from "../modules/sound"
@@ -16,7 +15,6 @@ import * as bullets from '../modules/bullets';
 
 var player;
 var cursors;
-// var bullets;
 var playerBullets;
 var enemyBullets;
 var enemies;
@@ -65,17 +63,11 @@ class Main extends Phaser.State {
 			move(player, cursors, this.game);
 			fire.ship(playerBullets, player, this.game, laser);
 			fire.enemy(enemyBullets, enemies, this.game, player);
-			this.game.physics.arcade.overlap(playerBullets, enemies, score.update, null, this);
-			scoreText.text = 'Score: ' + score.get();
-			this.game.physics.arcade.overlap(enemyBullets, player, life.reduce, life.count(lifeText), this);
+			this.updateKills();
 		}
 
 		if (enemies.countLiving() === 0) {
-			currentLevel += 1;
-			levelText.text = 'Level: ' + currentLevel;
-			update(enemies, currentLevel);
-			background.update(currentLevel);
-			bullets.update(enemyBullets, numberOfBullets += 3);
+			this.levelUp();
 		}
 
 		background.get().tilePosition.y += background.velocity();
@@ -83,9 +75,7 @@ class Main extends Phaser.State {
 
 	}
 
-
 	createPlayer() {
-		// Set physics for spaceship
 		player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
 		this.game.physics.arcade.enable(player);
 		player.body.collideWorldBounds = true;
@@ -94,7 +84,6 @@ class Main extends Phaser.State {
 	}
 
 	createDashboard() {
-		// Game dashboard
 		topBar = this.game.add.tileSprite(0, 0, 800, 35, "topBar");
 		lifeText  = displayText(this.game, 'Lives: 3', 20, 5, { font: '22px Arial', fill: '#FFF' });
 		scoreText = displayText(this.game, 'Score: 0', 150, 5, { font: '22px Arial', fill: '#FFF' });
@@ -112,6 +101,20 @@ class Main extends Phaser.State {
 		enemies.removeAll();
 		currentLevel = 1;
 		numberOfBullets = 3
+	}
+
+	updateKills() {
+		this.game.physics.arcade.overlap(playerBullets, enemies, score.update, null, this);
+		scoreText.text = 'Score: ' + score.get();
+		this.game.physics.arcade.overlap(enemyBullets, player, life.reduce, life.count(lifeText), this);
+	}
+
+	levelUp() {
+		currentLevel += 1;
+		levelText.text = 'Level: ' + currentLevel;
+		update(enemies, currentLevel);
+		background.update(currentLevel);
+		bullets.update(enemyBullets, numberOfBullets += 3);
 	}
 
 }
