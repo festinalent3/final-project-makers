@@ -28,6 +28,7 @@ var numberOfBullets = 3;
 var topBar;
 var currentLevel = 1;
 var laser;
+var totalNoOfLevels = 7;
 
 class Main extends Phaser.State {
 	create() {
@@ -94,13 +95,13 @@ class Main extends Phaser.State {
 
 	checkGameOver() {
 		if (life.get() === 0){
+      enemies.removeAll();
 			this.resetGame();
 			this.game.state.start("GameOver");
 		}
 	}
 
 	resetGame() {
-		enemies.removeAll();
 		currentLevel = 1;
 		numberOfBullets = 3
 	}
@@ -112,19 +113,21 @@ class Main extends Phaser.State {
 	}
 
 	levelUp() {
-		currentLevel += 1;
+    this.gameWon();
+    currentLevel += 1;
 		levelText.text = 'Level: ' + currentLevel;
 		update(enemies, currentLevel);
 		background.update(currentLevel);
 		bullets.update(enemyBullets, numberOfBullets += 1);
 	}
-	
-  restartGame() {
-    reset.all();
-    resetGame();
-    this.game.state.start("Main");
-  }
 
+  gameWon(){
+    if(currentLevel === totalNoOfLevels){
+      this.resetGame();
+      this.game.state.start("GameWon");
+    }
+  }
+	  
 }
 
 export default Main;
