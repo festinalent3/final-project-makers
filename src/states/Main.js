@@ -51,7 +51,6 @@ class Main extends Phaser.State {
 
 		enemies = new Enemies(this.game, 40);
 
-
 		// Enemy bullets
 		enemyBullets = bullets.generate(this.game, numberOfBullets, 'enemyBullet');
 	}

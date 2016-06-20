@@ -46,14 +46,10 @@ class Enemies {
 
 
   update(level) {
-    var index = -1;
-    for(var y = 0; y < 4; y++) {
-      for(var x = 0; x < 10; x++) {
-        var child = this.all.getAt(index += 1)
-        child.reset(x*60, y*50)
-        child.loadTexture(enemiesArray[level -1], 0);
-      }
-    }
+    this.all.forEach(function(enemy) {
+      enemy.revive();
+      enemy.loadTexture(enemiesArray[level -1], 0);
+    }, this);
   }
 }
 
