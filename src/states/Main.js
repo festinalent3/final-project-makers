@@ -85,9 +85,10 @@ class Main extends Phaser.State {
 			fire.enemy(enemyBullets, enemies, this.game, player);
 
 			if (enemies.countLiving() === 0) {
+        enemyBullets.removeAll();
         if (currentLevel === 6){
           player.kill();
-          var msg = displayText(this.game, "Cogratulations!!!, \nYou Won, \nRestart to continue", this.game.world.centerX, this.game.world.centerY, { font: '84px Arial', fill: '#fff' } );
+          var msg = displayText(this.game, "Cogratulations!!!, \nYou Won, \nClick to restart", this.game.world.centerX, this.game.world.centerY, { font: '84px Arial', fill: '#fff' } );
           msg.anchor.x = 0.5;
           msg.anchor.y = 0.5;
           this.game.input.onTap.addOnce(this.restartGame,this);
@@ -97,7 +98,7 @@ class Main extends Phaser.State {
 				update(enemies, enemiesArray[levelIndex += 1]);
 				set.background(spacefield, bckArray[levelIndex]);
 				set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
-			}
+      }
 
 			this.game.physics.arcade.overlap(bullets, enemies, score.update, null, this);
 			scoreText.text = 'Score: ' + score.get();
