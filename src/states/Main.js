@@ -11,12 +11,13 @@ import * as score from "../modules/score"
 import * as life from "../modules/life"
 import * as sound from "../modules/sound"
 import * as background from "../modules/background"
+import * as bullets from '../modules/bullets';
 
 
-var spacefield;
 var player;
 var cursors;
-var bullets;
+// var bullets;
+var playerBullets;
 var enemyBullets;
 var enemies;
 var scoreText;
@@ -54,8 +55,8 @@ class Main extends Phaser.State {
 		cursors = this.game.input.keyboard.createCursorKeys();
 
 		// Player bullets
-		bullets = this.game.add.group();
-		set.bulletsProperties(bullets, 30, 'bullet');
+		playerBullets = this.game.add.group();
+		bullets.generate(playerBullets, numberOfBullets*10, 'bullet');
 
 		// Audio
 		laser = this.game.add.audio('laser');
@@ -68,7 +69,7 @@ class Main extends Phaser.State {
 
 		// Enemy bullets
 		enemyBullets = this.game.add.group();
-		set.bulletsProperties(enemyBullets, numberOfBullets, 'enemyBullet');
+		bullets.generate(enemyBullets, numberOfBullets, 'enemyBullet');
 	}
 
 	update() {
@@ -78,9 +79,9 @@ class Main extends Phaser.State {
 
 		if(player.alive) {
 			move(player, cursors, this.game);
-			fire.ship(bullets, player, this.game, laser);
+			fire.ship(playerBullets, player, this.game, laser);
 			fire.enemy(enemyBullets, enemies, this.game, player);
-			this.game.physics.arcade.overlap(bullets, enemies, score.update, null, this);
+			this.game.physics.arcade.overlap(playerBullets, enemies, score.update, null, this);
 			scoreText.text = 'Score: ' + score.get();
 			this.game.physics.arcade.overlap(enemyBullets, player, life.reduce, life.count(lifeText), this);
 		}
@@ -90,21 +91,21 @@ class Main extends Phaser.State {
 			levelText.text = 'Level: ' + currentLevel;
 			update(enemies, currentLevel);
 			background.update(currentLevel);
-			set.bulletsProperties(enemyBullets, numberOfBullets += 3, 'enemyBullet');
+			bullets.generate(enemyBullets, numberOfBullets += 3, 'enemyBullet');
 		}
 
+		background.get().tilePosition.y += background.velocity();
 		this.checkGameOver();
 
-		background.get().tilePosition.y += background.velocity();
-
 	}
+
+
 
 	checkGameOver() {
 		if (life.get() === 0){
 			enemies.removeAll();
 			currentLevel = 1;
 			numberOfBullets = 3
-			console.log(currentLevel);
 			this.game.state.start("GameOver");
 		}
 	}

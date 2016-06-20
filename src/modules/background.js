@@ -24,7 +24,6 @@ export function velocity() {
   return backgroundVelocity;
 }
 
-
 export function reset() {
    backgroundVelocity = 5;
    currentLVL = 1;

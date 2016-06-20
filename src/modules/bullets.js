@@ -1,4 +1,4 @@
-export function bulletsProperties(bullets, nr, key) {
+export function generate(bullets, nr, key) {
   bullets.enableBody = true;
   bullets.createMultiple(nr, key);
   bullets.setAll('anchor.x', 0.3);
