@@ -6,7 +6,7 @@ import update from '../modules/update';
 import displayText from '../modules/displayText';
 
 import * as fire from '../modules/fire';
-import * as set from "../modules/gameProperties";
+// import * as set from "../modules/gameProperties";
 import * as score from "../modules/score"
 import * as life from "../modules/life"
 import * as sound from "../modules/sound"
@@ -35,28 +35,14 @@ class Main extends Phaser.State {
 
 		// Set physics for the groups
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
 		background.create(this.game);
-		topBar = this.game.add.tileSprite(0, 0, 800, 35, "topBar");
 
-		player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
-
-		// Game dashboard
-		lifeText  = displayText(this.game, 'Lives: 3', 20, 5, { font: '22px Arial', fill: '#FFF' });
-		scoreText = displayText(this.game, 'Score: 0', 150, 5, { font: '22px Arial', fill: '#FFF' });
-		levelText = displayText(this.game, 'Level: 1', 700, 5, { font: '22px Arial', fill: '#FFF' });
-
-		// Set physics for spaceship
-		this.game.physics.arcade.enable(player);
-		player.body.collideWorldBounds = true;
-		player.animations.add('left', [0, 1, 2, 3, 4], 15, true);
-		player.animations.add('right', [0, 1, 2, 3, 4], 15, true);
+		this.createDashboard();
+		this.createPlayer();
 
 		cursors = this.game.input.keyboard.createCursorKeys();
-
 		// Player bullets
-		playerBullets = this.game.add.group();
-		bullets.generate(playerBullets, numberOfBullets*10, 'bullet');
+		playerBullets = bullets.generate(this.game, numberOfBullets*10, 'bullet');
 
 		// Audio
 		laser = this.game.add.audio('laser');
@@ -68,14 +54,12 @@ class Main extends Phaser.State {
 		animate(enemies, this.game);
 
 		// Enemy bullets
-		enemyBullets = this.game.add.group();
-		bullets.generate(enemyBullets, numberOfBullets, 'enemyBullet');
+		enemyBullets = bullets.generate(this.game, numberOfBullets, 'enemyBullet');
 	}
 
 	update() {
 
 		sound.toggle(this.game);
-
 
 		if(player.alive) {
 			move(player, cursors, this.game);
@@ -91,7 +75,7 @@ class Main extends Phaser.State {
 			levelText.text = 'Level: ' + currentLevel;
 			update(enemies, currentLevel);
 			background.update(currentLevel);
-			bullets.generate(enemyBullets, numberOfBullets += 3, 'enemyBullet');
+			bullets.update(enemyBullets, numberOfBullets += 3);
 		}
 
 		background.get().tilePosition.y += background.velocity();
@@ -100,14 +84,34 @@ class Main extends Phaser.State {
 	}
 
 
+	createPlayer() {
+		// Set physics for spaceship
+		player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
+		this.game.physics.arcade.enable(player);
+		player.body.collideWorldBounds = true;
+		player.animations.add('left', [0, 1, 2, 3, 4], 15, true);
+		player.animations.add('right', [0, 1, 2, 3, 4], 15, true);
+	}
+
+	createDashboard() {
+		// Game dashboard
+		topBar = this.game.add.tileSprite(0, 0, 800, 35, "topBar");
+		lifeText  = displayText(this.game, 'Lives: 3', 20, 5, { font: '22px Arial', fill: '#FFF' });
+		scoreText = displayText(this.game, 'Score: 0', 150, 5, { font: '22px Arial', fill: '#FFF' });
+		levelText = displayText(this.game, 'Level: 1', 700, 5, { font: '22px Arial', fill: '#FFF' });
+	}
 
 	checkGameOver() {
 		if (life.get() === 0){
-			enemies.removeAll();
-			currentLevel = 1;
-			numberOfBullets = 3
+			this.resetGame();
 			this.game.state.start("GameOver");
 		}
+	}
+
+	resetGame() {
+		enemies.removeAll();
+		currentLevel = 1;
+		numberOfBullets = 3
 	}
 
 }
