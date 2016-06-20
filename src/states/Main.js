@@ -1,9 +1,12 @@
 import move from '../modules/moves';
-import createMany from '../modules/createMany';
-import align from '../modules/align';
-import animate from '../modules/animate';
-import update from '../modules/update';
+// import createMany from '../modules/createMany';
+// import align from '../modules/align';
+// import animate from '../modules/animate';
+// import update from '../modules/update';
 import displayText from '../modules/displayText';
+
+import Enemies from '../objects/Enemies';
+
 
 import * as fire from '../modules/fire';
 import * as score from "../modules/score"
@@ -46,11 +49,8 @@ class Main extends Phaser.State {
 		// Audio
 		laser = this.game.add.audio('laser');
 
-		// Enemies
-		enemies = this.game.add.group();
-		createMany(enemies, 'enemy_1', 40);
-		align(enemies);
-		animate(enemies, this.game);
+		enemies = new Enemies(this.game, 40);
+
 
 		// Enemy bullets
 		enemyBullets = bullets.generate(this.game, numberOfBullets, 'enemyBullet');
@@ -63,11 +63,11 @@ class Main extends Phaser.State {
 		if(player.alive) {
 			move(player, cursors, this.game);
 			fire.ship(playerBullets, player, this.game, laser);
-			fire.enemy(enemyBullets, enemies, this.game, player);
+			fire.enemy(enemyBullets, enemies.all, this.game, player);
 			this.updateKills();
 		}
 
-		if (enemies.countLiving() === 0) {
+		if (enemies.all.countLiving() === 0) {
 			this.levelUp();
 		}
 
@@ -100,13 +100,13 @@ class Main extends Phaser.State {
 	}
 
 	resetGame() {
-		enemies.removeAll();
+		enemies.all.removeAll();
 		currentLevel = 1;
 		numberOfBullets = 3
 	}
 
 	updateKills() {
-		this.game.physics.arcade.overlap(playerBullets, enemies, score.update, null, this);
+		this.game.physics.arcade.overlap(playerBullets, enemies.all, score.update, null, this);
 		scoreText.text = 'Score: ' + score.get();
 		this.game.physics.arcade.overlap(enemyBullets, player, life.reduce, life.count(lifeText), this);
 	}
@@ -114,11 +114,11 @@ class Main extends Phaser.State {
 	levelUp() {
 		currentLevel += 1;
 		levelText.text = 'Level: ' + currentLevel;
-		update(enemies, currentLevel);
+		enemies.update(currentLevel);
 		background.update(currentLevel);
 		bullets.update(enemyBullets, numberOfBullets += 1);
 	}
-	
+
   restartGame() {
     reset.all();
     resetGame();
