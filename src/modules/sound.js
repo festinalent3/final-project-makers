@@ -6,7 +6,7 @@ export function init(game, soundText) {
 	muteButton.onDown.add(toggle, game, 0, game, soundText);
 }
 
-function toggle(PhaserKey, game, soundText) {
+export function toggle(PhaserKey, game, soundText) {
 	toggler = !toggler;
 	game.sound.mute = toggler;
 	soundText.text = (toggler) ? "Sound: OFF" : "Sound: ON";
@@ -15,6 +15,3 @@ function toggle(PhaserKey, game, soundText) {
 export function reset() {
 	toggler = false;
 }
-
-
-//TODO: Unit test
