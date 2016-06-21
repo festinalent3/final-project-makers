@@ -9,6 +9,7 @@ import * as fire from '../modules/fire';
 import * as score from "../modules/score"
 import * as life from "../modules/life"
 import * as sound from "../modules/sound"
+import * as explosion from "../modules/explosion"
 import * as background from "../modules/background"
 import * as bullets from '../modules/bullets';
 import * as reset from '../helpers/reset';
@@ -29,6 +30,7 @@ var topBar;
 var currentLevel = 1;
 var laser;
 var totalNoOfLevels = 7;
+var explosions;
 
 class Main extends Phaser.State {
 	create() {
@@ -53,6 +55,11 @@ class Main extends Phaser.State {
 
 		// Enemy bullets
 		enemyBullets = bullets.generate(this.game, numberOfBullets, 'enemyBullet');
+
+		// Set explosions
+		explosions = explosion.set(this.game, 'boom');
+		console.log(explosions);
+
 	}
 
 	update() {

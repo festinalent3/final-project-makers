@@ -1,8 +1,10 @@
+import * as explosion from "../modules/explosion"
+
 var score = 0;
 
 export function update(bullet,enemy){
 	bullet.kill();
-	enemy.kill();
+	explosion.explode(enemy);
 	scoreUp();
 };
 
