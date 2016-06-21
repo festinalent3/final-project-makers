@@ -16,7 +16,7 @@ import * as reset from '../helpers/reset';
 var player;
 var cursors;
 var playerBullets;
-var enemyBullets;
+var bombs;
 var enemies;
 var scoreText;
 var enemyBullet;
@@ -54,27 +54,25 @@ class Main extends Phaser.State {
 		animate(enemies, this.game);
 
 		// Enemy bullets
-		enemyBullets = bullets.generate(this.game, numberOfBullets, 'enemyBullet');
+		bombs = bullets.generate(this.game, numberOfBullets, 'enemyBullet');
 	}
 
 	update() {
 
 		sound.toggle(this.game, soundText);
+		background.get().tilePosition.y += background.velocity();
 
 		if(player.alive) {
 			move(player, cursors, this.game);
 			fire.ship(playerBullets, player, this.game, laser);
-			fire.enemy(enemyBullets, enemies, this.game, player);
-			this.updateKills();
+			fire.enemy(bombs, enemies, this.game, player);
+			scoreText.text = 'Score: ' + score.get();
+			lifeText.text = 'Lives: ' + life.get();
+			if (enemies.countLiving() === 0) this.levelUp();
 		}
 
-		if (enemies.countLiving() === 0) {
-			this.levelUp();
-		}
-
-		background.get().tilePosition.y += background.velocity();
-		this.checkGameOver();
-
+		this.game.physics.arcade.overlap(playerBullets, enemies, this.bulletHitsEnemy, null, this);
+		this.game.physics.arcade.overlap(bombs, player, this.bombHitsPlayer, null, this);
 	}
 
 	createPlayer() {
@@ -103,13 +101,31 @@ class Main extends Phaser.State {
 
 	resetGame() {
 		currentLevel = 1;
-		numberOfBullets = 3
+		numberOfBullets = 3;
 	}
 
-	updateKills() {
-		this.game.physics.arcade.overlap(playerBullets, enemies, score.update, null, this);
-		scoreText.text = 'Score: ' + score.get();
-		this.game.physics.arcade.overlap(enemyBullets, player, life.reduce, life.count(lifeText), this);
+	bulletHitsEnemy (bullet, enemy) {
+	  bullet.kill();
+	  enemy.kill();
+	  score.scoreUp();
+	}
+
+	bombHitsPlayer(player, bomb) {
+	  bomb.kill();
+	  player.kill();
+	  // explode(player);
+	  life.decrease();
+	  
+	  if (life.get() > 0) {
+	  	setTimeout(function() {
+	  		player.revive();
+	  	}, 1000);
+	  }
+	  else {
+	    enemies.removeAll();
+			this.resetGame();
+			this.game.state.start("GameOver");
+	  }
 	}
 
 	levelUp() {
@@ -118,7 +134,7 @@ class Main extends Phaser.State {
 		levelText.text = 'Level: ' + currentLevel;
 		update(enemies, currentLevel);
 		background.update(currentLevel);
-		bullets.update(enemyBullets, numberOfBullets += 1);
+		bullets.update(bombs, numberOfBullets += 1);
 	}
 
   gameWon(){

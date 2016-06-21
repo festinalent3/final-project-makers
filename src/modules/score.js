@@ -10,7 +10,7 @@ export function get(){
 	return score;
 };
 
-function scoreUp() {
+export function scoreUp() {
 	score += 10;
 };
 
