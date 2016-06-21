@@ -3,7 +3,6 @@ import displayText from '../modules/displayText';
 import Player from  '../objects/Player';
 import Enemies from '../objects/Enemies';
 
-import * as fire from '../modules/fire';
 import * as score from "../modules/score"
 import * as life from "../modules/life"
 import * as sound from "../modules/sound"
@@ -59,8 +58,8 @@ class Main extends Phaser.State {
 
 		if(player.isAlive()) {
 			move(player.ship, cursors, this.game);
-			fire.ship(playerBullets, player.ship, this.game, laser);
-			enemies.fire(enemyBullets, player.ship);
+			player.fire(playerBullets, laser);
+    	enemies.fire(enemyBullets, player.ship);
 			this.updateKills();
 		}
 
