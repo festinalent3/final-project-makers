@@ -25,7 +25,8 @@ class Player {
 		return this.player;
 	}
 
-	fire(bullets, laser) {
+	fire(bullets, laser,fireButton) {
+		fireButton = fireButton || this.fireButton;
 	  if(fireButton.isDown) {
 	    this.fireBullet(bullets);
 	    laser.play();
@@ -33,7 +34,10 @@ class Player {
 	  }
 	}
 
-	fireBullet(bullets) {
+	fireBullet(bullets, game, player) {
+		game = game || this.game;
+		player = player || this.player;
+		
 	  if(this.game.time.now > bulletTime){
 	    var bullet = bullets.getFirstExists(false);
 

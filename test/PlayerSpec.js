@@ -4,7 +4,7 @@ describe('Player', function(){
 	var game;
 	var player;
 
- beforeEach(function(){
+  beforeEach(function(){
     game = {
       world: function(x){
         return x;
@@ -49,4 +49,51 @@ describe('Player', function(){
 			expect(newPlayer.isAlive(player)).toEqual(false);
     });
   });
+
+  describe('fire and fireBullets', function(){
+    var anotherPlayer;
+    var fireButton;
+    var bullets;
+    var gameAudio;
+    var gameTime;
+
+    beforeEach(function(){
+      fireButton = {
+        isDown: true
+      },
+      bullets = {
+        getFirstExists: function(value){
+          return value;
+        }
+      },
+      gameAudio = {
+        add: {
+          audio: function(key) {
+            return key;
+          }
+        },
+      },
+      gameTime = {
+        time: {
+          now : 10
+        }
+      }
+      anotherPlayer = new Player(game);
+      spyOn(gameAudio.add, 'audio');
+      spyOn(bullets, 'getFirstExists');
+      spyOn(gameTime.time, 'now' );
+    });
+
+    it('#fire', function(){
+      anotherPlayer.fire(bullets, gameAudio.add, fireButton);
+      //expect(fireButton.isDown).toEqual(true);
+    });
+
+    it('#firBullets',function(){
+      anotherPlayer.fireBullet(bullets, gameTime, player);
+    })
+
+  });
+
+
 });
