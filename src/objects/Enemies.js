@@ -52,16 +52,6 @@ class Enemies {
     function descend() {
       this.game.add.tween(this.all).to( { y: this.all.y + 10 }, 2500, Phaser.Easing.Linear.None, true, 0, 0, false);
     }
-
-    // this.all.x = 100;
-    // this.all.y = 50;
-    //
-    // var tween = this.game.add.tween(this.all).to( {x:150}, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
-    // tween.onStart.add(descend, this);
-    //
-    // function descend() {
-    //   this.game.add.tween(this.all).to( {y:250}, 10000, Phaser.Easing.Linear.None, true, 0, 1000, true);
-    // }
   };
 
 
