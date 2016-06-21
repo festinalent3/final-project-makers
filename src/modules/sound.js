@@ -1,7 +1,8 @@
-var toggler = true;
+var toggler = false;
 var muteButton;
 
 export function toggle(game, soundText) {
+	this.game = game;
 	muteButton = game.input.keyboard.addKey(Phaser.Keyboard.M);
 
 	if(muteButton.isDown) {
@@ -12,6 +13,7 @@ export function toggle(game, soundText) {
 }
 
 export function reset() {
-	toggler = true;
+	toggler = false;
+	this.game.sound.mute = toggler;
 }
-//TODO: Unit test and add reset function for toggler when gameover
+//TODO: Unit test 
