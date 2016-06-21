@@ -1,8 +1,4 @@
 import move from '../modules/moves';
-// import createMany from '../modules/createMany';
-// import align from '../modules/align';
-// import animate from '../modules/animate';
-// import update from '../modules/update';
 import displayText from '../modules/displayText';
 
 import Player from  '../objects/Player';
@@ -41,7 +37,7 @@ class Main extends Phaser.State {
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		background.create(this.game);
 		player = new Player(this.game);
-		// player.setProperties()
+		player.enableShip();
 
 		this.createDashboard();
 		cursors = this.game.input.keyboard.createCursorKeys();
@@ -63,10 +59,10 @@ class Main extends Phaser.State {
 
 		sound.toggle(this.game, soundText);
 
-		if(player.player.alive) {
-			move(player.player, cursors, this.game);
-			fire.ship(playerBullets, player.player, this.game, laser);
-			fire.enemy(enemyBullets, enemies.all, this.game, player.player);
+		if(player.isAlive()) {
+			move(player.ship, cursors, this.game);
+			fire.ship(playerBullets, player.ship, this.game, laser);
+			fire.enemy(enemyBullets, enemies.all, this.game, player.ship);
 			this.updateKills();
 		}
 
@@ -103,7 +99,7 @@ class Main extends Phaser.State {
 	updateKills() {
 		this.game.physics.arcade.overlap(playerBullets, enemies.all, score.update, null, this);
 		scoreText.text = 'Score: ' + score.get();
-		this.game.physics.arcade.overlap(enemyBullets, player.player, life.reduce, life.count(lifeText), this);
+		this.game.physics.arcade.overlap(enemyBullets, player.ship, life.reduce, life.count(lifeText), this);
 	}
 
 	levelUp() {
