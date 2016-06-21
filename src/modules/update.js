@@ -7,6 +7,7 @@ export default function update(group, level) {
       var child = group.getAt(index += 1)
       child.reset(x*60, y*50)
       child.loadTexture(enemiesArray[level -1], 0);
+      child.animations.add('explosion');
     }
   }
 }

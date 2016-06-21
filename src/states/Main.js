@@ -55,6 +55,9 @@ class Main extends Phaser.State {
 
 		// Enemy bullets
 		bombs = bullets.generate(this.game, numberOfBullets, 'enemyBullet');
+
+		// Set explosions
+		this.setExplosions();
 	}
 
 	update() {
@@ -106,14 +109,13 @@ class Main extends Phaser.State {
 
 	bulletHitsEnemy (bullet, enemy) {
 	  bullet.kill();
-	  enemy.kill();
+	  this.explode(enemy);
 	  score.scoreUp();
 	}
 
 	bombHitsPlayer(player, bomb) {
 	  bomb.kill();
-	  player.kill();
-	  // explode(player);
+	  this.explode(player);
 	  life.decrease();
 	  
 	  if (life.get() > 0) {
@@ -137,12 +139,28 @@ class Main extends Phaser.State {
 		bullets.update(bombs, numberOfBullets += 1);
 	}
 
-  gameWon(){
+  gameWon() {
     if(currentLevel === totalNoOfLevels) {
       this.resetGame();
       this.game.state.start("GameWon");
     }
   }
+
+  setExplosions() {
+  	this.explosions = this.game.add.group();
+    this.explosions.createMultiple(30, 'explosion');
+    this.explosions.forEach(function(enemy) {
+    	var self = this;
+    	enemy.animations.add('explosion');
+    }, self);
+  }
+
+  explode(object) {
+	  object.kill();
+	  var explosion = this.explosions.getFirstExists(false);
+	  explosion.reset(object.body.x, object.body.y);
+		explosion.play('explosion', 30, false, true);
+	}
 	  
 }
 
