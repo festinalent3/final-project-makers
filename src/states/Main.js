@@ -48,6 +48,8 @@ class Main extends Phaser.State {
 		enemies = new Enemies(this.game, 40);
 		enemies.init();
 
+		// sound.init(this.game);
+
 		// Enemy bullets
 		enemyBullets = bullets.generate(this.game, numberOfBullets, 'enemyBullet');
 	}
