@@ -119,13 +119,12 @@ describe('Player', function(){
 			spyOn(bullet, 'reset' );
 		});
 
-    describe('#fireBullets',function(){
-      it('does not fire if the fire button is not pressed', function(){
+   it('does not fire if the fire button is not pressed', function(){
         fireButton.isDown = false;
         anotherPlayer.fire(bullets, laser, fireButton, game, player);
         expect(bullets.getFirstExists).not.toHaveBeenCalled();
-      });  
-    })
+    });  
+    
 
 		it('sets the correct properties in #fireBullet', function(){
 			fireButton.isDown = true;
