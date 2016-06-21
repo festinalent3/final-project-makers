@@ -7,7 +7,7 @@ class Player {
 		this.game = game;
 		this.player = game.add.sprite(game.world.centerX, game.world.centerY + 200, 'player');
 		game.physics.arcade.enable(this.player);
-	};    
+	};
 
 	enableShip(){
 		this.player.body.collideWorldBounds = true;
