@@ -1,10 +1,7 @@
 import move from '../modules/moves';
-// import createMany from '../modules/createMany';
-// import align from '../modules/align';
-// import animate from '../modules/animate';
-// import update from '../modules/update';
 import displayText from '../modules/displayText';
 
+import Player from  '../objects/Player';
 import Enemies from '../objects/Enemies';
 
 
@@ -35,13 +32,14 @@ var totalNoOfLevels = 7;
 
 class Main extends Phaser.State {
 	create() {
-
+	
 		// Set physics for the groups
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		background.create(this.game);
+		player = new Player(this.game);
+		player.enableShip();
 
 		this.createDashboard();
-		this.createPlayer();
 		cursors = this.game.input.keyboard.createCursorKeys();
 
 		// Player bullets
@@ -61,10 +59,10 @@ class Main extends Phaser.State {
 
 		sound.toggle(this.game, soundText);
 
-		if(player.alive) {
-			move(player, cursors, this.game);
-			fire.ship(playerBullets, player, this.game, laser);
-			fire.enemy(enemyBullets, enemies.all, this.game, player);
+		if(player.isAlive()) {
+			move(player.ship, cursors, this.game);
+			fire.ship(playerBullets, player.ship, this.game, laser);
+			fire.enemy(enemyBullets, enemies.all, this.game, player.ship);
 			this.updateKills();
 		}
 
@@ -75,14 +73,6 @@ class Main extends Phaser.State {
 		background.get().tilePosition.y += background.velocity();
 		this.checkGameOver();
 
-	}
-
-	createPlayer() {
-		player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 200, 'player');
-		this.game.physics.arcade.enable(player);
-		player.body.collideWorldBounds = true;
-		player.animations.add('left', [0, 1, 2, 3, 4], 15, true);
-		player.animations.add('right', [0, 1, 2, 3, 4], 15, true);
 	}
 
 	createDashboard() {
@@ -109,7 +99,7 @@ class Main extends Phaser.State {
 	updateKills() {
 		this.game.physics.arcade.overlap(playerBullets, enemies.all, score.update, null, this);
 		scoreText.text = 'Score: ' + score.get();
-		this.game.physics.arcade.overlap(enemyBullets, player, life.reduce, life.count(lifeText), this);
+		this.game.physics.arcade.overlap(enemyBullets, player.ship, life.reduce, life.count(lifeText), this);
 	}
 
 	levelUp() {
