@@ -34,6 +34,7 @@ class Preload extends Phaser.State {
 
 		// Audio
 		this.game.load.audio('laser', 'assets/laser.wav');
+		this.game.load.audio('boom_sound', 'assets/explosion.wav');
 	}
 
 	create() {

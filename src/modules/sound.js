@@ -16,4 +16,3 @@ export function reset() {
 	toggler = false;
 	this.game.sound.mute = toggler;
 }
-//TODO: Unit test 

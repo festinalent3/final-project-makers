@@ -49,7 +49,7 @@ class Main extends Phaser.State {
 
 		// Audio
 		laser = this.game.add.audio('laser');
-
+		
 		enemies = new Enemies(this.game, 40);
 		enemies.init();
 
@@ -58,8 +58,6 @@ class Main extends Phaser.State {
 
 		// Set explosions
 		explosions = explosion.set(this.game, 'boom');
-		console.log(explosions);
-
 	}
 
 	update() {

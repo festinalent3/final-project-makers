@@ -1,7 +1,9 @@
 var explosions;
 var key = 'boom';
+var boom;
 
 export function set(game) {
+	boom = game.add.audio('boom_sound');
 	explosions = game.add.group();
 	explosions.createMultiple(30, key);
 	explosions.forEach(function(child) {
@@ -18,3 +20,6 @@ export function explode(object) {
 	explosion.play(key, 30, false, true);
 }
 
+export function kaboom() {
+	boom.play();
+}

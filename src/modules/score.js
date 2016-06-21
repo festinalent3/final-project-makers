@@ -5,6 +5,7 @@ var score = 0;
 export function update(bullet,enemy){
 	bullet.kill();
 	explosion.explode(enemy);
+	explosion.kaboom();
 	scoreUp();
 };
 
