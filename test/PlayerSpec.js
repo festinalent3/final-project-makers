@@ -63,7 +63,7 @@ describe('Player', function(){
 
 		beforeEach(function(){
 			fireButton = {
-				isDown: false
+				isDown: true
 			};
 
 			player = {
@@ -120,21 +120,19 @@ describe('Player', function(){
 		});
 
 		it('does not fire if the fire button is not pressed', function(){
-		        fireButton.isDown = false;
-		        anotherPlayer.fire(bullets, laser, fireButton, game, player);
-		        expect(bullets.getFirstExists).not.toHaveBeenCalled();
-		});  
-    
+			fireButton.isDown = false;
+			anotherPlayer.fire(bullets, laser, fireButton, game, player);
+			expect(bullets.getFirstExists).not.toHaveBeenCalled();
+		});
+
 
 		it('sets the correct properties in #fireBullet', function(){
-			fireButton.isDown = true;
 			anotherPlayer.fire(bullets, laser, fireButton, game, player);
 			expect(bullet.reset).toHaveBeenCalled();
 			expect(bullet.body.velocity.y).toEqual(-400);
 		});
 
 		it('plays the laser animation sound', function(){
-			fireButton.isDown = true;
 			anotherPlayer.fire(bullets, laser, fireButton, game, player);
 			expect(laser.play).toHaveBeenCalledTimes(1);
 		});
