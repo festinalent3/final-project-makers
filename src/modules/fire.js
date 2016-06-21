@@ -1,8 +1,6 @@
 
 var bulletTime = 0;
 var fireButton;
-var shooter;
-var enemyBullet;
 
 export function ship(bullets, object, game, laser) {
 
@@ -23,17 +21,6 @@ function fireBullet(game, player, bullets) {
       bullet.reset(player.x + 14,player.y);
       bullet.body.velocity.y = -400;
       bulletTime = game.time.now + 200;
-    }
-  }
-}
-
-export function enemy(enemyBullets, enemies, game, player) {
-  if (enemies.countLiving() > 0) {
-    shooter = enemies.getRandom(enemies.getIndex(enemies.getFirstAlive(false)), (enemies.countLiving()));
-    enemyBullet = enemyBullets.getFirstExists(false);
-    if(enemyBullet) {
-      enemyBullet.reset(shooter.body.x, shooter.body.y);
-      game.physics.arcade.moveToObject(enemyBullet, player, 120);
     }
   }
 }

@@ -21,17 +21,17 @@ describe('Player', function(){
           }
         }
       }
-    }
-   
-    spyOn(game.add, 'sprite'); 
+    };
+
+    spyOn(game.add, 'sprite');
     player = new Player(game);
   });
 
   describe('initialization', function(){
-    it('create a player sprite', function(){
+    it('creates a player sprite', function(){
      	expect(game.add.sprite).toHaveBeenCalled();
-    })
-  })
+    });
+  });
 
   describe('isAlive', function(){
     var newPlayer;
@@ -43,8 +43,10 @@ describe('Player', function(){
       newPlayer = new Player(game);
     });
 
-    it('return player is alive or  not', function(){
+    it('returns if player is alive or not', function(){
       expect(newPlayer.isAlive(player)).toEqual(true);
-    })
-  })
-}) 
+			player.alive = false;
+			expect(newPlayer.isAlive(player)).toEqual(false);
+    });
+  });
+});

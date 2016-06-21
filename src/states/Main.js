@@ -1,9 +1,7 @@
 import move from '../modules/moves';
 import displayText from '../modules/displayText';
-
 import Player from  '../objects/Player';
 import Enemies from '../objects/Enemies';
-
 
 import * as fire from '../modules/fire';
 import * as score from "../modules/score"
@@ -32,7 +30,7 @@ var totalNoOfLevels = 7;
 
 class Main extends Phaser.State {
 	create() {
-	
+
 		// Set physics for the groups
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		background.create(this.game);
@@ -62,7 +60,7 @@ class Main extends Phaser.State {
 		if(player.isAlive()) {
 			move(player.ship, cursors, this.game);
 			fire.ship(playerBullets, player.ship, this.game, laser);
-			fire.enemy(enemyBullets, enemies.all, this.game, player.ship);
+			enemies.fire(enemyBullets, player.ship);
 			this.updateKills();
 		}
 
