@@ -50,7 +50,7 @@ class Main extends Phaser.State {
 		enemies = new Enemies(this.game, 40);
 		enemies.init();
 
-		// sound.init(this.game);
+		sound.init(this.game, soundText);
 
 		// Enemy bullets
 		enemyBullets = bullets.generate(this.game, numberOfBullets, 'enemyBullet');
@@ -60,8 +60,6 @@ class Main extends Phaser.State {
 	}
 
 	update() {
-
-		sound.toggle(this.game, soundText);
 
 		if(player.isAlive()) {
 			move(player.ship, cursors, this.game);
