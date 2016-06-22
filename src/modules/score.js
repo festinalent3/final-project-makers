@@ -2,7 +2,8 @@ import * as explosion from "../modules/explosion"
 
 var score = 0;
 
-export function update(bullet,enemy){
+export function update(bullet, enemy, explosion){
+	explosion = explosion || this.explosion;
 	bullet.kill();
 	explosion.explode(enemy);
 	explosion.kaboom();

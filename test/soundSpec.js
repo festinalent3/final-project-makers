@@ -29,7 +29,6 @@ describe('sound', function() {
     sound.toggle(PhaserKey, game, soundText)
     expect(game.sound.mute).toEqual(false);
     expect(soundText.text).toEqual("Sound: ON");
-    sound.reset();
   });
 
 });
