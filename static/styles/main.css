@@ -1,15 +1,49 @@
-html {
-  width: 100%;
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
+#game {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 800px;
 }
 
-body {
-  height: inherit;
-  width: inherit;
-  margin: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+p {font-size: 16px;}
+.margin {margin-bottom: 45px;}
+
+.bg-1 {
+  background-color: black;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.bg-2 {
+  background-color: orange;
+}
+
+.bg-4 {
+  background-image: url("../assets/concrete_seamless.png");
+  background-repeat: repeat;
+}
+
+#header {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 12px;
+  letter-spacing: 5px;
+}
+
+.navbar-nav {
+  color: green;
+}
+
+footer {
+  padding-top: 10px;
+}
+
+footer p{
+  font-size: 14px;
+}
+
+footer img {
+  width: 25%;
 }
