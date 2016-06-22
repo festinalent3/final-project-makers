@@ -3,15 +3,19 @@ import * as explosion from "../modules/explosion"
 var attackReceived = false;
 var lives = 3;
 
-export function reduce(player, bullet){
+export function reduce(player, bullet, animatePlayer) {
 	attackReceived = true;
 	bullet.kill();
+	animatePlayer = animatePlayer || this.animatePlayer(player);
+};
+
+export function animatePlayer(player) {
 	explosion.explode(player);
 	explosion.kaboom();
 	if (lives > 0) {
 		setTimeout(function() {
-  		player.reset(player.body.x,player.body.y);
-  	}, 500);
+			player.reset(player.body.x,player.body.y);
+		}, 500);
 	}
 };
 
@@ -25,9 +29,9 @@ export function count(lifeText) {
 
 export function get(){
 	return lives;
-}
+};
 
 export function reset(){
 	lives = 3;
 	attackReceived = false;
-}
+};
