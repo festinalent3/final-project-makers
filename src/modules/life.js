@@ -14,7 +14,7 @@ export function reduce(player, bullet, animatePlayer) {
 		if (lives > 0) {
 			setTimeout(function() {
 				player.reset(player.body.x,player.body.y);
-			}, 500);
+			}, 350);
 		}
 	};
 };
