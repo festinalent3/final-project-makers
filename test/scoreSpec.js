@@ -23,7 +23,7 @@ describe('score', function() {
   });
 
 
-  it('resets the score to 0', function(){
+ /* it('resets the score to 0', function(){
     score.update(bullet, enemy);
     expect(score.get()).toEqual(scoreIncrease);
     score.reset();
@@ -39,6 +39,6 @@ describe('score', function() {
   it('increases the score', function(){
     score.update(bullet, enemy);
     expect(score.get()).toEqual(scoreIncrease);
-  });
+  });*/
 
 });
