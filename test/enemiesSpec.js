@@ -92,11 +92,63 @@ describe('Enemies', function() {
       spyOn(group, 'forEach').and.returnValue(true);
 
     });
-    
+
     it('revives and updates the sprite key of each child', function(){
       enemies.update(2, group);
       expect(group.forEach).toHaveBeenCalled();
     });
   });
 
+
+  describe("Enemies fire at player", function() {
+    var group;
+    var aliveEnemies
+    var enemyBullets;
+    var player;
+    var shooter;
+    var enemyBullet;
+
+    beforeEach(function() {
+      aliveEnemies = 0;
+      player = {};
+      enemyBullet = {
+        reset: function(value1, value2){}
+      };
+      enemyBullets = {
+        getFirstExists: function(value){
+          return value;
+        }
+      };
+      shooter = {
+        alive: false,
+        body: {
+          x: 1,
+          y: 2
+        }
+      };
+      group = {
+        countLiving: function() {}
+      };
+      spyOn(group, 'countLiving').and.returnValue(aliveEnemies);
+      spyOn(enemyBullets, 'getFirstExists')
+      spyOn(enemyBullet, 'reset')
+
+    });
+
+    describe("#fire", function() {
+
+      it('does not fire if all enemies are dead when called', function(){
+        enemies.fire(enemyBullets, player, group);
+        expect(group.countLiving).toHaveBeenCalled();
+        expect(enemyBullets.getFirstExists).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("#aimBullet", function() {
+      it('does not fire if the shooter enemy is dead', function(){
+        enemies.aimBullet(enemyBullet, shooter, player);
+        expect(enemyBullet.reset).not.toHaveBeenCalled();
+      });
+    });
+  });
 });

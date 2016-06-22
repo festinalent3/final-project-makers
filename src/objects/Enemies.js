@@ -61,8 +61,25 @@ class Enemies {
       enemy.revive();
       enemy.loadTexture(enemiesArray[level -1], 0);
     }, this);
-  }
-};
+  };
 
+
+  fire(enemyBullets, player, group) {
+    group = group || this.all;
+    if (group.countLiving() > 0) {
+      var enemyBullet = enemyBullets.getFirstExists(false);
+      var shooter = group.getRandom(group.getIndex(group.getFirstAlive(false)), group.countLiving());
+      this.aimBullet(enemyBullet, shooter, player);
+    }
+  };
+
+  aimBullet(enemyBullet, shooter, player) {
+    if(enemyBullet && shooter.alive) {
+      enemyBullet.reset(shooter.body.x, shooter.body.y);
+      this.game.physics.arcade.moveToObject(enemyBullet, player, 120);
+    }
+  };
+
+};
 
 export default Enemies;
