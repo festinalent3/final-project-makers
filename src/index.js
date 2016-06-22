@@ -9,7 +9,7 @@ class Game extends Phaser.Game {
 
 	constructor() {
 
-		super(800, 600, Phaser.AUTO)
+		super(800, 600, Phaser.AUTO, 'game')
 		this.state.add('Boot', Boot, false);
 		this.state.add('Preload', Preload, false);
 		this.state.add('GameTitle', GameTitle, false);
