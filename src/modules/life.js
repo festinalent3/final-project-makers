@@ -8,10 +8,10 @@ export function reduce(player, bullet){
 	bullet.kill();
 	explosion.explode(player);
 	explosion.kaboom();
-	if (lives > 0){
+	if (lives > 0) {
 		setTimeout(function() {
-  		player.reset(0,player.body.y);
-  	}, 1000);
+  		player.reset(player.body.x,player.body.y);
+  	}, 500);
 	}
 };
 
