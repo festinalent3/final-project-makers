@@ -5,19 +5,16 @@ describe('background', function() {
   var level = 1;
   var game;
   var currentLVL;
-  var backgroundVelocity;
+  var backgroundVelocity = 5;
   var currentBck;
 
   beforeEach(function(){
     currentLVL = 1;
-    backgroundVelocity = 5;
     level = 1;
 
     currentBck = {
-      loadTexture: function(x,y) {},
-      key:""
-      
-    };
+      loadTexture: function(x,y, key) {}
+      };
 
       game = {
         add: {
@@ -34,7 +31,7 @@ describe('background', function() {
   });
 
 
-  it('resets the background', function(){
+  it('update and resets the background', function(){
     background.create(game)
     background.update(level);
     expect(background.get()).toEqual(currentBck);
@@ -42,11 +39,12 @@ describe('background', function() {
     expect(background.get().key).toEqual(bckArray[0]);
   });
 
-  // it('kills bullet and enemy', function(){
-  //   score.update(bullet, enemy);
-  //   expect(bullet.kill).toHaveBeenCalled();
-  //   expect(enemy.kill).toHaveBeenCalled();
-  // });
+  it('adds velocity per level', function(){
+    background.create(game)
+    level += 1
+    background.update(level);
+    expect(background.velocity()).toEqual(9);
+  });
 
   // it('increases the score', function(){
   //   score.update(bullet, enemy);
