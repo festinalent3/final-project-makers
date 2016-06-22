@@ -1,11 +1,17 @@
+import * as explosion from "../modules/explosion"
+
 var attackReceived = false;
 var lives = 3;
 
 export function reduce(player, bullet){
 	attackReceived = true;
 	bullet.kill();
-	if (lives < 1){
-		player.kill();
+	explosion.explode(player);
+	explosion.kaboom();
+	if (lives > 0) {
+		setTimeout(function() {
+  		player.reset(player.body.x,player.body.y);
+  	}, 500);
 	}
 };
 

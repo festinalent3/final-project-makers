@@ -12,6 +12,7 @@ class Preload extends Phaser.State {
 
 		// Images
 		this.game.load.spritesheet('player', "assets/ship.png", 32, 52);
+		this.game.load.spritesheet('boom', "assets/explosion.png", 40, 41);
 		this.game.load.image('topBar', "assets/top.png");
 		this.game.load.image('bullet', "assets/bullet_2.png");
 		this.game.load.image('bck_1', "assets/background_1.png");
@@ -33,6 +34,7 @@ class Preload extends Phaser.State {
 
 		// Audio
 		this.game.load.audio('laser', 'assets/laser.wav');
+		this.game.load.audio('boom_sound', 'assets/explosion.wav');
 	}
 
 	create() {
