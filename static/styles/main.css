@@ -13,11 +13,18 @@ p {font-size: 16px;}
 .bg-1 {
   background-color: black;
   padding-top: 25px;
+  /*padding-bottom: 25px;*/
+}
+
+.bg-2 { 
+  background-color: black;
+  padding-top: 25px;
   padding-bottom: 25px;
 }
 
-.bg-2 {
-  background-color: orange;
+.bg-2 img {
+  width: 60%;
+  height: auto;
 }
 
 .bg-4 {
@@ -30,10 +37,6 @@ p {font-size: 16px;}
   padding-bottom: 15px;
   font-size: 12px;
   letter-spacing: 5px;
-}
-
-.navbar-nav {
-  color: green;
 }
 
 footer {
