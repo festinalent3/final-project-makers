@@ -25,7 +25,7 @@ describe('life', function() {
 
   });
 
- /* it('resets the life to 3', function(){
+  it('resets the life to 3', function(){
     life.reduce(player, bullet);
     life.count(lifeText)
     expect(life.get()).toEqual(2);
@@ -53,5 +53,5 @@ describe('life', function() {
       life.count(lifeText);
       expect(bullet.kill).toHaveBeenCalled();
     }
-  });*/
+  });
 });
