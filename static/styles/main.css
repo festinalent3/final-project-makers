@@ -13,7 +13,6 @@ p {font-size: 16px;}
 .bg-1 {
   background-color: black;
   padding-top: 25px;
-  /*padding-bottom: 25px;*/
 }
 
 .bg-2 { 
@@ -40,8 +39,8 @@ p {font-size: 16px;}
 }
 
 footer {
-  padding-top: 10px;
-  margin-bottom: 10px;
+  padding-top: 25px;
+  margin-bottom: 25px;
 }
 
 footer p{
