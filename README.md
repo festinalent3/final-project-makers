@@ -1,4 +1,4 @@
-# ![Alt text](http://i.imgur.com/Nx87hK6.png, "Makers Invaders")
+## About the project
 
 Makers Invaders is a 2D game created as a final proyect for Makers Academy.
 
