@@ -1,10 +1,10 @@
 ## About the project
 
-Makers Invaders is a 2D game created as a final proyect for Makers Academy.
+Makers Invaders is a 2D game created as a final project for Makers Academy.
 
-# ![Alt text](http://i.imgur.com/hn5bNqG.png, "Makers Invaders")
+# ![Alt text](http://i.imgur.com/AJ30h6u.png, "Makers Invaders")
 
-# ![Alt text](http://i.imgur.com/URFANm0.jpg, "Makers Invaders 2")
+# ![Alt text](http://i.imgur.com/2BU0Xch.jpg, "Makers Invaders 2")
 
 ## Technologies
 
