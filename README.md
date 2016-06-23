@@ -51,7 +51,8 @@ Run unit tests
 
 ## Contributors
 
-* [Emma Sjöström](https://github.com/festinalent3)
+
 * [Aday Mesa](https://github.com/adaymesa)
-* [Omar Alvarez](https://github.com/omajul85)
+* [Emma Sjöström](https://github.com/festinalent3)
 * [Namitha H.](https://github.com/hnamitha1)
+* [Omar Alvarez](https://github.com/omajul85)
