@@ -38,11 +38,12 @@ class Main extends Phaser.State {
 		player = new Player(this.game);
 		player.enableShip();
 
-		this.createDashboard();
-		cursors = this.game.input.keyboard.createCursorKeys();
-
 		// Player bullets
 		playerBullets = bullets.generate(this.game, numberOfBullets*10, 'bullet');
+
+		// Create Dashboard
+		this.createDashboard();
+		cursors = this.game.input.keyboard.createCursorKeys();
 
 		// Audio
 		laser = this.game.add.audio('laser');
