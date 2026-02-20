@@ -1,4 +1,6 @@
 node_modules
 build
+dist
+public/scripts/phaser.min.js
 *.log
 *.tmp
