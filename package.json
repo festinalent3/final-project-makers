@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "postinstall": "mkdir -p public/scripts && cp node_modules/phaser/build/phaser.min.js public/scripts/phaser.min.js"
+    "postinstall": "mkdir -p public/scripts && cp node_modules/phaser/build/phaser.min.js public/scripts/phaser.min.js",
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,8 @@
   "author": "ES, AM, NH, OA",
   "license": "MIT",
   "devDependencies": {
-    "vite": "^5.4.0"
+    "vite": "^5.4.0",
+    "vitest": "^4.0.18"
   },
   "dependencies": {
     "phaser": "^2.6.2"

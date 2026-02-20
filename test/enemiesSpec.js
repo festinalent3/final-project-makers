@@ -28,7 +28,7 @@ describe('Enemies', function() {
         }
       };
 
-      spyOn(group,'create');
+      vi.spyOn(group,'create');
     });
 
     it('enables body of the group', function(){
@@ -63,9 +63,9 @@ describe('Enemies', function() {
         }
       };
 
-      spyOn(group, 'getAt').and.returnValue(child);
-      spyOn(child, 'reset');
-      spyOn(child.anchor, 'setTo');
+      vi.spyOn(group, 'getAt').mockReturnValue(child);
+      vi.spyOn(child, 'reset');
+      vi.spyOn(child.anchor, 'setTo');
 
     });
 
@@ -89,7 +89,7 @@ describe('Enemies', function() {
         }
       };
 
-      spyOn(group, 'forEach').and.returnValue(true);
+      vi.spyOn(group, 'forEach').mockReturnValue(true);
 
     });
 
@@ -129,9 +129,9 @@ describe('Enemies', function() {
       group = {
         countLiving: function() {}
       };
-      spyOn(group, 'countLiving').and.returnValue(aliveEnemies);
-      spyOn(enemyBullets, 'getFirstExists')
-      spyOn(enemyBullet, 'reset')
+      vi.spyOn(group, 'countLiving').mockReturnValue(aliveEnemies);
+      vi.spyOn(enemyBullets, 'getFirstExists');
+      vi.spyOn(enemyBullet, 'reset');
 
     });
 

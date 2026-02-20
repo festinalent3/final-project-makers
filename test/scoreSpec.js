@@ -17,20 +17,17 @@ describe('score', function() {
       kill: function() {}
     };
 
-
     explosion = {
       explode: function(){},
       kaboom: function() {}
     }
 
-
-    spyOn(bullet, 'kill');
-    spyOn(explosion, 'explode');
-    spyOn(explosion, 'kaboom');
+    vi.spyOn(bullet, 'kill');
+    vi.spyOn(explosion, 'explode');
+    vi.spyOn(explosion, 'kaboom');
 
     score.reset();
   });
-
 
   it('resets the score to 0', function(){
     score.update(bullet, enemy, explosion);

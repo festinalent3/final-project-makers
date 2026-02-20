@@ -22,7 +22,7 @@ describe('life', function() {
 
     animatePlayer = function() {}
 
-    spyOn(bullet,'kill');
+    vi.spyOn(bullet,'kill');
     life.reset();
 
   });

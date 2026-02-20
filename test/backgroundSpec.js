@@ -24,12 +24,11 @@ describe('background', function() {
       }
     };
 
-    spyOn(currentBck, 'loadTexture').and.returnValue(currentBck.key=bckArray[level-1]);
-    spyOn(game.add, 'tileSprite').and.returnValue(currentBck);
+    vi.spyOn(currentBck, 'loadTexture').mockReturnValue(currentBck.key=bckArray[level-1]);
+    vi.spyOn(game.add, 'tileSprite').mockReturnValue(currentBck);
 
     background.reset();
   });
-
 
   it('update and resets the background', function(){
     background.create(game)
@@ -45,10 +44,5 @@ describe('background', function() {
     background.update(level);
     expect(background.velocity()).toEqual(9);
   });
-
-  // it('increases the score', function(){
-  //   score.update(bullet, enemy);
-  //   expect(score.get()).toEqual(scoreIncrease);
-  // });
 
 });

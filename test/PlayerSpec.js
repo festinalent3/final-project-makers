@@ -23,7 +23,7 @@ describe('Player', function(){
 			}
 		};
 
-		spyOn(game.add, 'sprite');
+		vi.spyOn(game.add, 'sprite');
 		player = new Player(game);
 	});
 
@@ -79,9 +79,7 @@ describe('Player', function(){
 			};
 
 			laser = {
-				play: {
-					function() {}
-				}
+				play: function() {}
 			};
 
 			game = {
@@ -114,9 +112,9 @@ describe('Player', function(){
 			bulletTime = 0;
 			anotherPlayer = new Player(game);
 
-			spyOn(laser, 'play');
-			spyOn(bullets, 'getFirstExists').and.returnValue(bullet);
-			spyOn(bullet, 'reset' );
+			vi.spyOn(laser, 'play');
+			vi.spyOn(bullets, 'getFirstExists').mockReturnValue(bullet);
+			vi.spyOn(bullet, 'reset');
 		});
 
 		it('does not fire if the fire button is not pressed', function(){

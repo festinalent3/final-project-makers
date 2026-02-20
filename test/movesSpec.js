@@ -27,7 +27,7 @@ describe('move', function() {
       }
     }
 
-    spyOn(player.animations,'play');
+    vi.spyOn(player.animations,'play');
 
   });
 

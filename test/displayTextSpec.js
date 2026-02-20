@@ -13,7 +13,7 @@ describe('displayText', function(){
     game = {
       add: {
 	    	text: function(value){
-	       	return value;	
+	       	return value;
 	      }
 	    }
     };
@@ -26,7 +26,7 @@ describe('displayText', function(){
     	text: "Lives: 3"
     };
 
-    spyOn(game.add,'text').and.returnValue(stateText=stateTextV2);
+    vi.spyOn(game.add,'text').mockReturnValue(stateText=stateTextV2);
 
   });
 
