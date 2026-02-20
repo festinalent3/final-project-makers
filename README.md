@@ -8,12 +8,9 @@ Makers Invaders is a 2D game created as a final project for Makers Academy.
 
 ## Technologies
 
-* Phaser
+* Phaser 2
 * ES6
-
-## Technologies for testing
-
-* Karma/jasmine
+* Vite
 
 ## Features
 
@@ -35,19 +32,15 @@ Install dependencies
 
 `npm install`
 
-Run a development build...
+Run the development server
 
 `npm start`
 
-Visit `http://localhost:3000` and enjoy Makers Invaders.
+Visit `http://localhost:5173` and enjoy Makers Invaders.
 
-...or a production build.
+...or build for production.
 
-`npm run production`
-
-Run unit tests
-
-`npm test`
+`npm run build`
 
 ## Contributors
 
